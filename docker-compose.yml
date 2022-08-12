@@ -7,6 +7,10 @@ services:
     build: train_data/
     network_mode: host
 
+  ticket_office:
+    build: ticket_office/java/
+    network_mode: host
+
 networks:
   hostsnet:
     external: true
