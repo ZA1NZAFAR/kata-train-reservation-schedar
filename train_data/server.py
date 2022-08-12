@@ -50,7 +50,7 @@ class TrainDataService:
                 return "seat not found {0}".format(seat)
             existing_reservation = train["seats"][seat]["booking_reference"]
             if existing_reservation and existing_reservation != booking_reference:
-                return "already booked with reference: {0}".format(existing_reservation)
+                raise cherrypy.HTTPError(status=409, message=f"already booked with reference: {existing_reservation}")
         for seat in seats:
             train["seats"][seat]["booking_reference"] = booking_reference
         return self.data_for_train(train_id)
