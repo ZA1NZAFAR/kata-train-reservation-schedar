@@ -1,11 +1,8 @@
-FROM eclipse-temurin:17-jdk-jammy
+FROM openjdk:17-alpine
 
-WORKDIR /app
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
 
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN ./mvnw dependency:resolve
-COPY src ./src
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
-CMD ["./mvnw", "spring-boot:run"]
 
