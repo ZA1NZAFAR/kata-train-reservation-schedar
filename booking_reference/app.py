@@ -7,7 +7,7 @@ different url.
 Install [Python](http://python.org) and
 [Flask](https://flask.palletsprojects.com), then start the server by running:
 
-    python server.py
+  FLASK_DEBUG=true flask run --port 8082
 
 You can use this service to get a unique booking reference. Make a GET request to:
 
@@ -21,21 +21,19 @@ This will return a string that looks a bit like this:
 from flask import Flask
 
 
+class Counter:
+    def __init__(self):
+        self._count = 123456789
+
+    def increment(self):
+        self._count += 1
+
+    def value(self):
+        return str(hex(self._count))[2:]
+
+
 def create_app():
-    class Counter():
-        def __init__(self):
-            self._count = 123456789
-
-        def increment(self):
-            self._count += 1
-
-        def value(self):
-            return str(hex(self._count))[2:]
-
-
-
     counter = Counter()
-
     app = Flask("booking_reference")
 
     @app.get("/booking_reference")
