@@ -28,20 +28,20 @@ request to this url:
 
     http://localhost:8081/reserve
 
-and attach form data for which seats to reserve. There should be three fields:
+and attach form data for which seats to reserve. There should a json-encoded
+body looking like this:
 
-    "train_id", "seats", "booking_reference"
+    {
+        "train_id": "express_2000",
+        "seats", : ["1A", "2A"],
+        "booking_reference": "abc123def"
+   }
 
-The "seats" field should be a json encoded list of seat ids, for example:
-
-    '["1A", "2A"]'
-
-The other two fields are ordinary strings. Note the server will prevent
-you from booking a seat that is already reserved with another booking
-reference.
+Note that the server will prevent you from booking a seat that is
+already reserved with another booking reference.
 
 The service has one additional method, that will remove all reservations
-on a particular train. Use it with care:
+on a particular train. Use it with care!:
 
     http://localhost:8081/reset/express_2000
 """
@@ -54,6 +54,7 @@ from flask import Flask, jsonify, request
 def create_app():
     with open("trains.json", "r") as f:
         trains = json.load(f)
+        foos = []
 
     app = Flask("train_data")
 
@@ -63,6 +64,11 @@ def create_app():
         if not train:
             return f"No train with id '{train_id}'", 404
         return jsonify(train)
+
+    @app.post("/foo")
+    def foo():
+        foos.append("foo")
+        return jsonify(foos)
 
     @app.post("/reset/<train_id>")
     def reset(train_id):
@@ -76,15 +82,24 @@ def create_app():
 
     @app.post("/reserve")
     def reserve():
-        payload = request.json()
-        print(payload)
+        payload = request.json
 
-        train_id = payload["train_id"]
+        train_id = payload.get("train_id")
+        if not train_id:
+            return "Missing 'train_id' in body", 400
+
         train = trains.get(train_id)
         if not train:
             return f"No train with id '{train_id}'", 404
 
-        seats = payload["seats"]
+        seats = payload.get("seats")
+        if not seats:
+            return "Missing 'seats' in body", 400
+
+        booking_reference = payload.get("booking_reference")
+        if not booking_reference:
+            return "Missing 'booking_reference' in body", 400
+
         for seat in seats:
             if not seat in train["seats"]:
                 return f"No seat found with number {seat}", 404

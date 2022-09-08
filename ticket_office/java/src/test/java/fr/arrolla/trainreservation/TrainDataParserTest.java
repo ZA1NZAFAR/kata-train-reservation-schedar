@@ -3,6 +3,7 @@ package fr.arrolla.trainreservation;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TrainDataParserTest {
   @Test
@@ -26,7 +27,18 @@ public class TrainDataParserTest {
 
     var parser = new TrainDataParser();
     var trainData = parser.parse(trainDataJson);
-    assertEquals(2, trainData.seats().stream().count());
+
+    var seats = trainData.seats();
+
+    assertEquals(2, seats.size());
+    var seat1 = seats.get(0);
+    var seat2 = seats.get(1);
+    assertEquals("A", seat1.coach());
+    assertEquals("1", seat1.number());
+    assertNull(seat1.bookingReference());
+    assertEquals("B", seat2.coach());
+    assertEquals("1", seat2.number());
+    assertEquals("abcdef123", seat2.bookingReference());
   }
 
 }
