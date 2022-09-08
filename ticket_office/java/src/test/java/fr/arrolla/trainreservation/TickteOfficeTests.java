@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class TrainReservationApplicationTests {
+class TickteOfficeTests {
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -28,6 +27,13 @@ class TrainReservationApplicationTests {
 		var response = mockMvc.perform(query).andExpect(statusOk).andReturn().getResponse();
 		var body = response.getContentAsString();
 		assertEquals("pong", body);
+	}
+
+	@Test
+	void reserveSeatsFromEmptyTrain() throws Exception {
+		var client = new TrainDataClient();
+		client.reset();
+
 	}
 
 }

@@ -56,6 +56,7 @@ class TrainDataService:
         return self.data_for_train(train_id)
 
     def reset(self, train_id):
+        print("train_id", train_id)
         train = self.trains.get(train_id)
         for seat_id, seat in train["seats"].items():
             seat["booking_reference"] = ""
