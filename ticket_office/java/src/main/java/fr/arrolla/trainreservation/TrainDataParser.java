@@ -14,9 +14,10 @@ public class TrainDataParser {
       var tree = objectMapper.readTree(trainDataJson);
       var seatsNode = tree.get("seats");
       for (JsonNode node : seatsNode) {
-        String bookingReference = node.get("booking_reference").asText();
-        if (bookingReference.isEmpty()) {
-          bookingReference = null;
+        String bookingReference = null;
+        var bookingReferenceNode = node.get("booking_reference");
+        if (bookingReferenceNode != null && !bookingReferenceNode.isNull() && bookingReferenceNode.asText() != "") {
+          bookingReference = bookingReferenceNode.asText();
         }
         String coach = node.get("coach").asText();
         String seat_number = node.get("seat_number").asText();

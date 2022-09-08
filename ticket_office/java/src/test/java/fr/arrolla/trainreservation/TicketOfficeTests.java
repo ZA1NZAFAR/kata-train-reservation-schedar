@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -59,7 +60,11 @@ class TicketOfficeTests {
       .andReturn()
       .getResponse();
 
+    var body = result.getContentAsString();
+    var parser = new TrainDataParser();
+    var newTrainData = parser.parse(body);
 
+    assertNotNull(newTrainData);
   }
 
 }

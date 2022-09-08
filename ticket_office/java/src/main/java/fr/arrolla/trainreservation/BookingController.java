@@ -36,8 +36,8 @@ public class BookingController {
 
     var reservation = new Reservation(trainId, bookingReference, seats);
 
-    trainDataClient.makeReservation(reservation);
-
-    return "ok";
+    var updatedTrainData = trainDataClient.makeReservation(reservation);
+    var serializer = new TrainDataSerializer();
+    return serializer.serialize(updatedTrainData);
   }
 }

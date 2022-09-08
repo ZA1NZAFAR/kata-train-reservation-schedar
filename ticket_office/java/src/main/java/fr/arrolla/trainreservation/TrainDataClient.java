@@ -23,12 +23,13 @@ public class TrainDataClient {
     return parser.parse(json);
   }
 
-  public void makeReservation(Reservation reservation) {
+  public TrainData makeReservation(Reservation reservation) {
     Map<String, Object> payload = new HashMap<>();
     payload.put("train_id", reservation.trainId());
     payload.put("seats", reservation.seats());
-    payload.put("booking_reference", reservation.bookingReference());
-    String res = restTemplate.postForObject(baseUrl + "/reserve", payload, String.class);
-    System.out.println(res);
+    payload.put("booking_reference", reservation.booking_reference());
+    String json = restTemplate.postForObject(baseUrl + "/reserve", payload, String.class);
+    var parser = new TrainDataParser();
+    return parser.parse(json);
   }
 }
