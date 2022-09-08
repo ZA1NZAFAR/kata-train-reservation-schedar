@@ -4,8 +4,14 @@ import org.junit.jupiter.api.Test;
 
 public class TrainDataClientTest {
   @Test
-  void canReset() {
+  void canResetExistingTrain() {
     var client = new TrainDataClient();
-    client.reset();
+    client.reset("express_2000");
+  }
+
+  @Test
+  void canGetTrainData() {
+    var client = new TrainDataClient();
+    client.getTrainData("express_2000");
   }
 }
