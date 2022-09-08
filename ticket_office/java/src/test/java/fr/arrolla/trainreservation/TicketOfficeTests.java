@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -65,6 +66,13 @@ class TicketOfficeTests {
     var newTrainData = parser.parse(body);
 
     assertNotNull(newTrainData);
+
+    var seatsWithReservation = newTrainData.seats().stream().filter(seat -> seat.bookingReference() != null).toList();
+    assertEquals(4, seatsWithReservation.size());
+    var seatNumbers = seatsWithReservation.stream().map(seat -> seat.number() + seat.coach()).sorted().toList();
+    var expected = List.of("1A", "2A", "3A", "4A");
+    assertEquals(expected, seatNumbers);
+
   }
 
 }

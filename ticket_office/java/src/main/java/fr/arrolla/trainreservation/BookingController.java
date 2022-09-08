@@ -26,9 +26,10 @@ public class BookingController {
 
     var bookingReference = bookingReferenceClient.getNewBookingReference();
     var trainData = trainDataClient.getTrainData(trainId);
-    var availableSeats = trainData.seats().stream().filter(seat -> seat.bookingReference() == null).toList();
-    var seats = new ArrayList<String>();
+    var inFirstCoach = trainData.seats().stream().filter(seat -> seat.coach().equals("A"));
+    var availableSeats = inFirstCoach.filter(seat -> seat.bookingReference() == null).toList();
 
+    var seats = new ArrayList<String>();
     for (int i = 0; i < seatCount; i++) {
       var availableSeat = availableSeats.get(i);
       seats.add(availableSeat.number() + availableSeat.coach());
