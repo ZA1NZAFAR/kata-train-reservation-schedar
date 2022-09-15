@@ -46,7 +46,6 @@ on a particular train. Use it with care!:
     http://localhost:8081/reset/express_2000
 """
 
-import cherrypy
 import json
 from flask import Flask, jsonify, request
 
