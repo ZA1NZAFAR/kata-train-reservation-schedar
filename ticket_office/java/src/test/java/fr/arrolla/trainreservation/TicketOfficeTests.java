@@ -3,13 +3,13 @@ package fr.arrolla.trainreservation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import fr.arrolla.trainreservation.domain.BookingRequest;
-import fr.arrolla.trainreservation.infra.HttpServiceClient;
 import fr.arrolla.trainreservation.infra.TrainDataParser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.nio.charset.StandardCharsets;
@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ContextConfiguration(classes = {FakeServiceClient.class})
 class TicketOfficeTests {
   public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(
     MediaType.APPLICATION_JSON.getType(),
@@ -39,7 +40,7 @@ class TicketOfficeTests {
   @Test
   void reserveFourSeatsFromEmptyTrain() throws Exception {
     final String trainId = "express_2000";
-    var client = new HttpServiceClient();
+    var client = new FakeServiceClient();
     client.reset(trainId);
 
     var request = new BookingRequest(trainId, 4);
