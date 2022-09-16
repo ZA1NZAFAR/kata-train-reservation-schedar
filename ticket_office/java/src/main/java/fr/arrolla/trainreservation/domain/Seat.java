@@ -1,4 +1,4 @@
-package fr.arrolla.trainreservation;
+package fr.arrolla.trainreservation.domain;
 
 public record Seat(SeatNumber number, CoachID coach, String bookingReference) {
 

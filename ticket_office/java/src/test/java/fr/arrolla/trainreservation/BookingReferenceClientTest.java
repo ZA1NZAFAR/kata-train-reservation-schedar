@@ -1,5 +1,6 @@
 package fr.arrolla.trainreservation;
 
+import fr.arrolla.trainreservation.infra.BookingReferenceClient;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

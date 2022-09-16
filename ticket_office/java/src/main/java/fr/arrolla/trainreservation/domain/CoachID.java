@@ -1,4 +1,4 @@
-package fr.arrolla.trainreservation;
+package fr.arrolla.trainreservation.domain;
 
 public class CoachID {
   private final String coach;

@@ -2,6 +2,9 @@ package fr.arrolla.trainreservation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import fr.arrolla.trainreservation.domain.BookingRequest;
+import fr.arrolla.trainreservation.infra.TrainDataClient;
+import fr.arrolla.trainreservation.infra.TrainDataParser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,7 +17,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,15 +34,6 @@ class TicketOfficeTests {
 
   @Test
   void contextLoads() {
-  }
-
-  @Test
-  void canCallPing() throws Exception {
-    var query = get("http://127.0.0.1:8083/ping");
-    var statusOk = status().isOk();
-    var response = mockMvc.perform(query).andExpect(statusOk).andReturn().getResponse();
-    var body = response.getContentAsString();
-    assertEquals("pong", body);
   }
 
   @Test

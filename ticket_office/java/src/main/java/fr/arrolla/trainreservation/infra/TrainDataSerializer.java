@@ -1,8 +1,9 @@
-package fr.arrolla.trainreservation;
+package fr.arrolla.trainreservation.infra;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import fr.arrolla.trainreservation.domain.TrainData;
 
 import java.util.HashMap;
 

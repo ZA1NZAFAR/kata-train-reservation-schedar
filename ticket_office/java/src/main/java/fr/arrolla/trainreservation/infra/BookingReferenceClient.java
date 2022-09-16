@@ -1,4 +1,4 @@
-package fr.arrolla.trainreservation;
+package fr.arrolla.trainreservation.infra;
 
 import org.springframework.web.client.RestTemplate;
 

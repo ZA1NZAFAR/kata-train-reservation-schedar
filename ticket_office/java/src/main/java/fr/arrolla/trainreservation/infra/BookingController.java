@@ -1,5 +1,7 @@
-package fr.arrolla.trainreservation;
+package fr.arrolla.trainreservation.infra;
 
+import fr.arrolla.trainreservation.domain.BookingRequest;
+import fr.arrolla.trainreservation.domain.Reservation;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

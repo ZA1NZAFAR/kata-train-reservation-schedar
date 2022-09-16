@@ -1,5 +1,6 @@
 package fr.arrolla.trainreservation;
 
+import fr.arrolla.trainreservation.infra.TrainDataParser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

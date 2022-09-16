@@ -1,4 +1,4 @@
-package fr.arrolla.trainreservation;
+package fr.arrolla.trainreservation.domain;
 
 import java.util.List;
 

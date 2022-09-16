@@ -1,5 +1,7 @@
 package fr.arrolla.trainreservation;
 
+import fr.arrolla.trainreservation.domain.Reservation;
+import fr.arrolla.trainreservation.infra.TrainDataClient;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

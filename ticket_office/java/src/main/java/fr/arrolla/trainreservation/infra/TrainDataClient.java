@@ -1,5 +1,7 @@
-package fr.arrolla.trainreservation;
+package fr.arrolla.trainreservation.infra;
 
+import fr.arrolla.trainreservation.domain.Reservation;
+import fr.arrolla.trainreservation.domain.TrainData;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
