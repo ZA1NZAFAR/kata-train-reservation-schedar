@@ -1,4 +1,9 @@
 package fr.arrolla.trainreservation;
 
-public record Seat(String number, String coach, String bookingReference) {
+public record Seat(SeatNumber number, CoachID coach, String bookingReference) {
+
+  public SeatID id() {
+    return new SeatID(number, coach);
+  }
+
 }

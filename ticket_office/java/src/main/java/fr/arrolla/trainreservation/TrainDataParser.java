@@ -21,7 +21,7 @@ public class TrainDataParser {
         }
         String coach = node.get("coach").asText();
         String seat_number = node.get("seat_number").asText();
-        Seat seat = new Seat(seat_number, coach, bookingReference);
+        Seat seat = new Seat(new SeatNumber(seat_number), new CoachID(coach), bookingReference);
         seats.add(seat);
       }
     } catch (JsonProcessingException e) {

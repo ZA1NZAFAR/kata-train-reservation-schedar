@@ -11,15 +11,15 @@ public class TrainDataSerializer {
     HashMap<String, HashMap<String, String>> seats = new HashMap<>();
     for (var seat : trainData.seats()) {
       HashMap<String, String> seatMap = new HashMap<>();
-      seatMap.put("coach", seat.coach());
-      seatMap.put("seat_number", seat.number());
+      seatMap.put("coach", seat.coach().toString());
+      seatMap.put("seat_number", seat.number().toString());
       var bookingReference = seat.bookingReference();
       if (bookingReference == null) {
         seatMap.put("booking_reference", "");
       } else {
         seatMap.put("booking_reference", bookingReference);
       }
-      seats.put(seat.coach() + seat.number(), seatMap);
+      seats.put(seat.id().toString(), seatMap);
     }
 
     HashMap<String, HashMap<String, HashMap<String, String>>> res = new HashMap<>();

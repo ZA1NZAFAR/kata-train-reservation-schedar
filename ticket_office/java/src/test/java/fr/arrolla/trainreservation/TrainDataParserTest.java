@@ -33,11 +33,11 @@ public class TrainDataParserTest {
     assertEquals(2, seats.size());
     var seat1 = seats.get(0);
     var seat2 = seats.get(1);
-    assertEquals("A", seat1.coach());
-    assertEquals("1", seat1.number());
+    assertEquals("A", seat1.coach().toString());
+    assertEquals("1", seat1.number().toString());
     assertNull(seat1.bookingReference());
-    assertEquals("B", seat2.coach());
-    assertEquals("1", seat2.number());
+    assertEquals("B", seat2.coach().toString());
+    assertEquals("1", seat2.number().toString());
     assertEquals("abcdef123", seat2.bookingReference());
   }
 
