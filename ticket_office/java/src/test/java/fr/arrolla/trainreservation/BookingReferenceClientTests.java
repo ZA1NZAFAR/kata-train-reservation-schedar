@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class BookingReferenceClientTest {
+public class BookingReferenceClientTests {
   @Test
   void canGetSeveralUniqueBookingReferences() {
     HttpServiceClient client = new HttpServiceClient();

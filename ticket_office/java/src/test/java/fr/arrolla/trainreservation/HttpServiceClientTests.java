@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class HttpServiceClientTest {
+public class HttpServiceClientTests {
   @Test
   void canResetExistingTrain() {
     var client = new HttpServiceClient();

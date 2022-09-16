@@ -3,13 +3,11 @@ package fr.arrolla.trainreservation.infra;
 import fr.arrolla.trainreservation.domain.Reservation;
 import fr.arrolla.trainreservation.domain.ServiceClient;
 import fr.arrolla.trainreservation.domain.TrainData;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
 public class HttpServiceClient implements ServiceClient {
   private final RestTemplate restTemplate;
   private final String baseUrl = "http://127.0.0.1:8081";
