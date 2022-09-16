@@ -1,6 +1,6 @@
 package fr.arrolla.trainreservation;
 
-import fr.arrolla.trainreservation.infra.BookingReferenceClient;
+import fr.arrolla.trainreservation.infra.HttpServiceClient;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class BookingReferenceClientTest {
   @Test
   void canGetSeveralUniqueBookingReferences() {
-    BookingReferenceClient client = new BookingReferenceClient();
+    HttpServiceClient client = new HttpServiceClient();
     String first = client.getNewBookingReference();
     String second = client.getNewBookingReference();
     assertNotEquals(first, second);

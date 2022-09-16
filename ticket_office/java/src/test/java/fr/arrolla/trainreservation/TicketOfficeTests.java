@@ -3,7 +3,7 @@ package fr.arrolla.trainreservation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import fr.arrolla.trainreservation.domain.BookingRequest;
-import fr.arrolla.trainreservation.infra.TrainDataClient;
+import fr.arrolla.trainreservation.infra.HttpServiceClient;
 import fr.arrolla.trainreservation.infra.TrainDataParser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ class TicketOfficeTests {
   @Test
   void reserveFourSeatsFromEmptyTrain() throws Exception {
     final String trainId = "express_2000";
-    var client = new TrainDataClient();
+    var client = new HttpServiceClient();
     client.reset(trainId);
 
     var request = new BookingRequest(trainId, 4);
