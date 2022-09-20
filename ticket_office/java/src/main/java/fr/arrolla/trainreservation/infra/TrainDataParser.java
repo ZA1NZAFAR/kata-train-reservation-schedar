@@ -6,12 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.arrolla.trainreservation.domain.CoachID;
 import fr.arrolla.trainreservation.domain.Seat;
 import fr.arrolla.trainreservation.domain.SeatNumber;
-import fr.arrolla.trainreservation.domain.TrainData;
+import fr.arrolla.trainreservation.domain.Train;
 
 import java.util.ArrayList;
 
 public class TrainDataParser {
-  public TrainData parse(String trainDataJson) {
+  public Train parse(String trainDataJson) {
     ObjectMapper objectMapper = new ObjectMapper();
     ArrayList<Seat> seats = new ArrayList<>();
     try {
@@ -32,6 +32,6 @@ public class TrainDataParser {
       throw new RuntimeException(e);
     }
 
-    return new TrainData(seats);
+    return new Train(seats);
   }
 }

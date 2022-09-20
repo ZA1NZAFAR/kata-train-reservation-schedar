@@ -2,7 +2,7 @@ package fr.arrolla.trainreservation.infra;
 
 import fr.arrolla.trainreservation.domain.Reservation;
 import fr.arrolla.trainreservation.domain.ServiceClient;
-import fr.arrolla.trainreservation.domain.TrainData;
+import fr.arrolla.trainreservation.domain.Train;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -22,14 +22,14 @@ public class HttpServiceClient implements ServiceClient {
   }
 
   @Override
-  public TrainData getTrainData(String trainId) {
+  public Train getTrain(String trainId) {
     var json = restTemplate.getForObject(baseUrl + "/data_for_train/" + trainId, String.class);
     var parser = new TrainDataParser();
     return parser.parse(json);
   }
 
   @Override
-  public TrainData makeReservation(Reservation reservation) {
+  public Train makeReservation(Reservation reservation) {
     Map<String, Object> payload = new HashMap<>();
     payload.put("train_id", reservation.trainId());
     payload.put("seats", reservation.seats());

@@ -1,11 +1,12 @@
 package fr.arrolla.trainreservation;
 
 import fr.arrolla.trainreservation.domain.Reservation;
+import fr.arrolla.trainreservation.domain.SeatID;
 import fr.arrolla.trainreservation.domain.ServiceClient;
-import fr.arrolla.trainreservation.domain.TrainData;
+import fr.arrolla.trainreservation.domain.Train;
 
 public class FakeServiceClient implements ServiceClient {
-  private TrainData trainData;
+  private Train train;
   private static int counter = 1;
 
   public FakeServiceClient() {
@@ -13,24 +14,24 @@ public class FakeServiceClient implements ServiceClient {
 
   @Override
   public void reset(String trainId) {
-    if (trainData != null) {
-      trainData.seats().clear();
+    if (train != null) {
+      train.reset();
     }
   }
 
   @Override
-  public TrainData getTrainData(String trainId) {
-    return trainData;
+  public Train getTrain(String trainId) {
+    return train;
   }
 
   @Override
-  public TrainData makeReservation(Reservation reservation) {
+  public Train makeReservation(Reservation reservation) {
     String bookingReference = reservation.booking_reference();
     for (var seat : reservation.seats()) {
-      var matchingSeat = trainData.seats().stream().filter(s -> s.id().toString().equals(seat)).findFirst();
-      matchingSeat.ifPresent(value -> value.book(bookingReference));
+      var seatID = SeatID.parse(seat);
+      train.book(seatID, bookingReference);
     }
-    return trainData;
+    return train;
   }
 
   @Override
@@ -39,7 +40,7 @@ public class FakeServiceClient implements ServiceClient {
     return Integer.toString(counter);
   }
 
-  public void setTrainData(TrainData trainData) {
-    this.trainData = trainData;
+  public void setTrain(Train train) {
+    this.train = train;
   }
 }

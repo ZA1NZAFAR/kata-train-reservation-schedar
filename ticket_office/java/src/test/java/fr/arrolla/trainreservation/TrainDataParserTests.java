@@ -29,16 +29,16 @@ public class TrainDataParserTests {
     var parser = new TrainDataParser();
     var trainData = parser.parse(trainDataJson);
 
-    var seats = trainData.seats();
+    var seats = trainData.seats().sorted().toList();
 
     assertEquals(2, seats.size());
     var seat1 = seats.get(0);
     var seat2 = seats.get(1);
-    assertEquals("A", seat1.coach().toString());
     assertEquals("1", seat1.number().toString());
+    assertEquals("A", seat1.coach().toString());
     assertTrue(seat1.isFree());
-    assertEquals("B", seat2.coach().toString());
     assertEquals("1", seat2.number().toString());
+    assertEquals("B", seat2.coach().toString());
     assertEquals("abcdef123", seat2.bookingReference());
   }
 

@@ -16,7 +16,7 @@ public class HttpServiceClientTests {
   @Test
   void canGetTrainData() {
     var client = new HttpServiceClient();
-    client.getTrainData("express_2000");
+    client.getTrain("express_2000");
   }
 
   @Test

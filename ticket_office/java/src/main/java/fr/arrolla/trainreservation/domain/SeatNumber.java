@@ -1,13 +1,7 @@
 package fr.arrolla.trainreservation.domain;
 
-public class SeatNumber {
-
-  private final String number;
-
-  public SeatNumber(String number) {
-    this.number = number;
-  }
-
+public record SeatNumber(String number) {
+  
   public String toString() {
     return number;
   }

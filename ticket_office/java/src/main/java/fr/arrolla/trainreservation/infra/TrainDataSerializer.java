@@ -3,14 +3,14 @@ package fr.arrolla.trainreservation.infra;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import fr.arrolla.trainreservation.domain.TrainData;
+import fr.arrolla.trainreservation.domain.Train;
 
 import java.util.HashMap;
 
 public class TrainDataSerializer {
-  public String serialize(TrainData trainData) {
+  public String serialize(Train train) {
     HashMap<String, HashMap<String, String>> seats = new HashMap<>();
-    for (var seat : trainData.seats()) {
+    train.seats().forEach(seat -> {
       HashMap<String, String> seatMap = new HashMap<>();
       seatMap.put("coach", seat.coach().toString());
       seatMap.put("seat_number", seat.number().toString());
@@ -20,7 +20,7 @@ public class TrainDataSerializer {
         seatMap.put("booking_reference", seat.bookingReference());
       }
       seats.put(seat.id().toString(), seatMap);
-    }
+    });
 
     HashMap<String, HashMap<String, HashMap<String, String>>> res = new HashMap<>();
     res.put("seats", seats);

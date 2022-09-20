@@ -17,7 +17,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,8 +48,8 @@ class TicketOfficeTests {
 
   @Test
   void reserveFourSeatsFromEmptyTrain() throws Exception {
-    var trainData = Helpers.makeEmptyTrain();
-    fakeServiceClient.setTrainData(trainData);
+    var train = Helpers.makeEmptyTrain();
+    fakeServiceClient.setTrain(train);
 
     var request = new BookingRequest(trainId, 4);
     var mapper = new ObjectMapper();
@@ -66,16 +65,12 @@ class TicketOfficeTests {
 
     var body = result.getContentAsString();
     var parser = new TrainDataParser();
-    var newTrainData = parser.parse(body);
-
-    assertNotNull(newTrainData);
-
-    var seatsWithReservation = newTrainData.seats().stream().filter(seat -> !seat.isFree()).toList();
+    var newTrain = parser.parse(body);
+    var seatsWithReservation = newTrain.seats().filter(seat -> !seat.isFree()).toList();
     assertEquals(4, seatsWithReservation.size());
     var seatNumbers = seatsWithReservation.stream().map(seat -> seat.id().toString()).sorted().toList();
     var expected = List.of("1A", "2A", "3A", "4A");
     assertEquals(expected, seatNumbers);
-
   }
 
 }

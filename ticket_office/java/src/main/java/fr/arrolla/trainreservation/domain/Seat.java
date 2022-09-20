@@ -1,6 +1,6 @@
 package fr.arrolla.trainreservation.domain;
 
-public class Seat {
+public class Seat implements Comparable<Seat> {
   private final SeatNumber number;
   private final CoachID coach;
   private String bookingReference;
@@ -15,6 +15,7 @@ public class Seat {
     this(number, coach, null);
   }
 
+
   public SeatID id() {
     return new SeatID(number, coach);
   }
@@ -27,7 +28,7 @@ public class Seat {
     if (this.bookingReference.equals(bookingReference)) {
       return;
     }
-    
+
     String message = String.format("Seat '%s' already booked with reference '%s', but trying to book with '%s",
       this.number,
       this.bookingReference,
@@ -51,5 +52,14 @@ public class Seat {
 
   public String bookingReference() {
     return bookingReference;
+  }
+
+  public void unBook() {
+    this.bookingReference = null;
+  }
+
+  @Override
+  public int compareTo(Seat other) {
+    return this.id().compareTo(other.id());
   }
 }

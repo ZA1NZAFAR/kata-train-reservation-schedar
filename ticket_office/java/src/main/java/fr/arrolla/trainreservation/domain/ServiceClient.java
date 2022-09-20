@@ -3,9 +3,9 @@ package fr.arrolla.trainreservation.domain;
 public interface ServiceClient {
   void reset(String trainId);
 
-  TrainData getTrainData(String trainId);
+  Train getTrain(String trainId);
 
-  TrainData makeReservation(Reservation reservation);
+  Train makeReservation(Reservation reservation);
 
   String getNewBookingReference();
 }

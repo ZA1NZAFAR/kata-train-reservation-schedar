@@ -1,9 +1,6 @@
 package fr.arrolla.trainreservation;
 
-import fr.arrolla.trainreservation.domain.AlreadyBookedException;
-import fr.arrolla.trainreservation.domain.CoachID;
-import fr.arrolla.trainreservation.domain.Seat;
-import fr.arrolla.trainreservation.domain.SeatNumber;
+import fr.arrolla.trainreservation.domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +14,13 @@ public class SeatTests {
     var coachId = new CoachID("A");
     var seatNumber = new SeatNumber("1");
     seat = new Seat(seatNumber, coachId);
+  }
+
+  @Test
+  void canParseSeatID() {
+    String id = "1A";
+    var parsed = SeatID.parse(id);
+    assertEquals("1A", parsed.toString());
   }
 
   @Test

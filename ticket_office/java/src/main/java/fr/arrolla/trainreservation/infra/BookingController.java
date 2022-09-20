@@ -1,9 +1,6 @@
 package fr.arrolla.trainreservation.infra;
 
-import fr.arrolla.trainreservation.domain.BookingRequest;
-import fr.arrolla.trainreservation.domain.Reservation;
-import fr.arrolla.trainreservation.domain.Seat;
-import fr.arrolla.trainreservation.domain.ServiceClient;
+import fr.arrolla.trainreservation.domain.*;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,12 +21,11 @@ public class BookingController {
   String reserve(@RequestBody BookingRequest bookingRequest) {
     var seatCount = bookingRequest.seat_count();
     var trainId = bookingRequest.train_id();
-
-
     var bookingReference = serviceClient.getNewBookingReference();
-    var trainData = serviceClient.getTrainData(trainId);
-    var inFirstCoach = trainData.seats().stream().filter(seat -> seat.coach().toString().equals("A"));
-    var availableSeats = inFirstCoach.filter(Seat::isFree).toList();
+    var train = serviceClient.getTrain(trainId);
+
+    var inFirstCoach = train.seatsInCoach(new CoachID("A"));
+    var availableSeats = inFirstCoach.filter(Seat::isFree).sorted().toList();
 
     var seats = new ArrayList<String>();
     for (int i = 0; i < seatCount; i++) {
@@ -39,8 +35,8 @@ public class BookingController {
 
     var reservation = new Reservation(trainId, bookingReference, seats);
 
-    var updatedTrainData = serviceClient.makeReservation(reservation);
+    var updatedTrain = serviceClient.makeReservation(reservation);
     var serializer = new TrainDataSerializer();
-    return serializer.serialize(updatedTrainData);
+    return serializer.serialize(updatedTrain);
   }
 }
