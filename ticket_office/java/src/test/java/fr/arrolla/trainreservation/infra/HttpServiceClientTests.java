@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class HttpServiceClientTests {
   @Test
   void canResetExistingTrain() {
@@ -13,9 +15,10 @@ public class HttpServiceClientTests {
   }
 
   @Test
-  void canGetTrainData() {
+  void canGetTrain() {
     var client = new HttpServiceClient();
-    client.getTrain("express_2000");
+    var train = client.getTrain("express_2000");
+    assertEquals(16, train.seats().count());
   }
 
   @Test

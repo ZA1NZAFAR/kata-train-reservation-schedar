@@ -11,11 +11,11 @@ import fr.arrolla.trainreservation.domain.Train;
 import java.util.ArrayList;
 
 public class TrainParser {
-  public Train parse(String trainDataJson) {
+  public Train parse(String json) {
     ObjectMapper objectMapper = new ObjectMapper();
     ArrayList<Seat> seats = new ArrayList<>();
     try {
-      var tree = objectMapper.readTree(trainDataJson);
+      var tree = objectMapper.readTree(json);
       var seatsNode = tree.get("seats");
       for (JsonNode node : seatsNode) {
         String bookingReference = null;
