@@ -11,12 +11,30 @@ public class Seat {
     this.bookingReference = bookingReference;
   }
 
+  public Seat(SeatNumber number, CoachID coach) {
+    this(number, coach, null);
+  }
+
   public SeatID id() {
     return new SeatID(number, coach);
   }
 
   public void book(String bookingReference) {
-    this.bookingReference = bookingReference;
+    if (this.isFree()) {
+      this.bookingReference = bookingReference;
+    }
+
+    if (this.bookingReference.equals(bookingReference)) {
+      return;
+    }
+    
+    String message = String.format("Seat '%s' already booked with reference '%s', but trying to book with '%s",
+      this.number,
+      this.bookingReference,
+      bookingReference
+    );
+
+    throw new AlreadyBookedException(message);
   }
 
   public boolean isFree() {
