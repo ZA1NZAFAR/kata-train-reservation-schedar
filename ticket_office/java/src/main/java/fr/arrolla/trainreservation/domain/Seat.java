@@ -16,10 +16,6 @@ public class Seat implements Comparable<Seat> {
   }
 
 
-  public SeatID id() {
-    return new SeatID(number, coach);
-  }
-
   public void book(String bookingReference) {
     if (this.isFree()) {
       this.bookingReference = bookingReference;
@@ -38,8 +34,20 @@ public class Seat implements Comparable<Seat> {
     throw new AlreadyBookedException(message);
   }
 
+  public void unBook() {
+    this.bookingReference = null;
+  }
+
   public boolean isFree() {
     return this.bookingReference == null;
+  }
+
+  public boolean isBooked() {
+    return !this.isFree();
+  }
+
+  public SeatID id() {
+    return new SeatID(number, coach);
   }
 
   public SeatNumber number() {
@@ -54,16 +62,9 @@ public class Seat implements Comparable<Seat> {
     return bookingReference;
   }
 
-  public void unBook() {
-    this.bookingReference = null;
-  }
-
   @Override
   public int compareTo(Seat other) {
     return this.id().compareTo(other.id());
   }
 
-  public boolean isOccupied() {
-    return !this.isFree();
-  }
 }

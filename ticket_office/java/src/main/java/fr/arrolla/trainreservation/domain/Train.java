@@ -43,7 +43,7 @@ public class Train {
   public double occupancyForCoach(CoachID coach) {
     var seats = seatsInCoach(coach).toList();
     var total = seats.size();
-    var occupied = seats.stream().filter(Seat::isOccupied).count();
+    var occupied = seats.stream().filter(Seat::isBooked).count();
     return occupied * 1.0f / total;
   }
 }

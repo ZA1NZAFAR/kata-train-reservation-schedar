@@ -26,7 +26,7 @@ public class SeatTests {
   void canBookOnce() {
     seat.book("123");
 
-    assertFalse(seat.isFree());
+    assertTrue(seat.isBooked());
     assertEquals("123", seat.bookingReference());
   }
 
@@ -35,7 +35,7 @@ public class SeatTests {
     seat.book("123");
     seat.book("123");
 
-    assertFalse(seat.isFree());
+    assertTrue(seat.isBooked());
   }
 
   @Test

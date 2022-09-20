@@ -33,7 +33,7 @@ public class TicketOfficeTests {
   }
 
   private static void checkReservation(Train train) {
-    var seatsWithReservation = train.seats().filter(seat -> !seat.isFree()).toList();
+    var seatsWithReservation = train.seats().filter(seat -> seat.isBooked()).toList();
     var seatNumbers = seatsWithReservation.stream().map(seat -> seat.id().toString()).sorted().toList();
     var expected = List.of("0A", "1A", "2A", "3A");
     assertEquals(expected, seatNumbers);
