@@ -1,7 +1,5 @@
 package fr.arrolla.trainreservation.domain;
 
-import java.util.ArrayList;
-
 public class TicketOffice {
   private final ServiceClient serviceClient;
 
@@ -10,22 +8,13 @@ public class TicketOffice {
   }
 
   public Train reserve(String trainId, int seatCount) {
-    // Fetch booking reference and train data using the serviceClient
     var bookingReference = serviceClient.getNewBookingReference();
     var train = serviceClient.getTrain(trainId);
 
-    // Find available seats
-    var inFirstCoach = train.seatsInCoach(new CoachID("A"));
-    var availableSeats = inFirstCoach.filter(Seat::isFree).sorted().toList();
+    var seatFinder = new SeatFinder(train);
+    var freeSeats = seatFinder.findSeats(seatCount);
 
-    var seats = new ArrayList<SeatID>();
-    for (int i = 0; i < seatCount; i++) {
-      var availableSeat = availableSeats.get(i);
-      seats.add(availableSeat.id());
-    }
-
-    // Make the reservation
-    var reservation = new Reservation(trainId, bookingReference, seats.stream().toList());
+    var reservation = new Reservation(trainId, bookingReference, freeSeats.toList());
     var updatedTrain = serviceClient.makeReservation(reservation);
 
     return updatedTrain;
