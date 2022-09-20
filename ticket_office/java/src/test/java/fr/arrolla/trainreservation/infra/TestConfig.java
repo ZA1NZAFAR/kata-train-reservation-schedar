@@ -21,7 +21,7 @@ public class TestConfig {
   public static class TrainParserTests {
     @Test
     void parseTwoSeats() {
-      String trainDataJson = """    
+      String json = """    
         {
           "seats": {
             "1A": {
@@ -39,9 +39,9 @@ public class TestConfig {
         """;
 
       var parser = new TrainParser();
-      var trainData = parser.parse(trainDataJson);
+      var train = parser.parse(json);
 
-      var seats = trainData.seats().sorted().toList();
+      var seats = train.seats().sorted().toList();
 
       assertEquals(2, seats.size());
       var seat1 = seats.get(0);
