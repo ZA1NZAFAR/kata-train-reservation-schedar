@@ -1,0 +1,13 @@
+Extract a method
+
+```java
+Reservation buildReservation(
+    Train train,
+    String bookingReference,
+    int seatCount
+)
+```
+
+and write tests just for that.
+
+
