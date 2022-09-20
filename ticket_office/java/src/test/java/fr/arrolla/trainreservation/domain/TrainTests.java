@@ -1,8 +1,6 @@
-package fr.arrolla.trainreservation;
+package fr.arrolla.trainreservation.domain;
 
-import fr.arrolla.trainreservation.domain.CoachID;
-import fr.arrolla.trainreservation.domain.NoSuchSeatException;
-import fr.arrolla.trainreservation.domain.SeatID;
+import fr.arrolla.trainreservation.Helpers;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

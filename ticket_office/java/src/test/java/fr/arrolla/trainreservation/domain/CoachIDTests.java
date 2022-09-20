@@ -1,9 +1,9 @@
-package fr.arrolla.trainreservation;
+package fr.arrolla.trainreservation.domain;
 
-import fr.arrolla.trainreservation.domain.CoachID;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class CoachIDTests {
 

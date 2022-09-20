@@ -1,6 +1,7 @@
-package fr.arrolla.trainreservation;
+package fr.arrolla.trainreservation.domain;
 
-import fr.arrolla.trainreservation.domain.TicketOffice;
+import fr.arrolla.trainreservation.FakeServiceClient;
+import fr.arrolla.trainreservation.Helpers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TicketOfficeUnitTests {
+public class TicketOfficeTests {
   private FakeServiceClient fakeServiceClient;
 
   @BeforeEach

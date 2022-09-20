@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class Helpers {
-  static Train makeEmptyTrain() {
+  public static Train makeEmptyTrain() {
     var seats = new ArrayList<Seat>();
     var letters = new String[]{"A", "B", "C", "D", "E"};
     var coachIds = Arrays.stream(letters).map(s -> new CoachID(s));
