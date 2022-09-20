@@ -1,6 +1,7 @@
 package fr.arrolla.trainreservation.infra;
 
 import fr.arrolla.trainreservation.domain.Reservation;
+import fr.arrolla.trainreservation.domain.SeatID;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -24,8 +25,8 @@ public class HttpServiceClientTests {
   @Test
   void canMakeReservation() {
     var client = new HttpServiceClient();
-    var seats = List.of(new String[]{"1A", "2A"});
-    var reservation = new Reservation("express_2000", "abc123def", seats);
+    var seats = List.of(new String[]{"1A", "2A"}).stream().map(s -> SeatID.parse(s));
+    var reservation = new Reservation("express_2000", "abc123def", seats.toList());
     client.makeReservation(reservation);
   }
 }

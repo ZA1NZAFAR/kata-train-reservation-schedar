@@ -18,14 +18,14 @@ public class TicketOffice {
     var inFirstCoach = train.seatsInCoach(new CoachID("A"));
     var availableSeats = inFirstCoach.filter(Seat::isFree).sorted().toList();
 
-    var seats = new ArrayList<String>();
+    var seats = new ArrayList<SeatID>();
     for (int i = 0; i < seatCount; i++) {
       var availableSeat = availableSeats.get(i);
-      seats.add(availableSeat.id().toString());
+      seats.add(availableSeat.id());
     }
 
     // Make the reservation
-    var reservation = new Reservation(trainId, bookingReference, seats);
+    var reservation = new Reservation(trainId, bookingReference, seats.stream().toList());
     var updatedTrain = serviceClient.makeReservation(reservation);
 
     return updatedTrain;
