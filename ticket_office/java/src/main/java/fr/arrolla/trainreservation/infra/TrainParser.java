@@ -10,7 +10,7 @@ import fr.arrolla.trainreservation.domain.Train;
 
 import java.util.ArrayList;
 
-public class TrainDataParser {
+public class TrainParser {
   public Train parse(String trainDataJson) {
     ObjectMapper objectMapper = new ObjectMapper();
     ArrayList<Seat> seats = new ArrayList<>();

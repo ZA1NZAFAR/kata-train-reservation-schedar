@@ -18,7 +18,7 @@ public class TestConfig {
     return new FakeServiceClient();
   }
 
-  public static class TrainDataParserTests {
+  public static class TrainParserTests {
     @Test
     void parseTwoSeats() {
       String trainDataJson = """    
@@ -38,7 +38,7 @@ public class TestConfig {
         }
         """;
 
-      var parser = new TrainDataParser();
+      var parser = new TrainParser();
       var trainData = parser.parse(trainDataJson);
 
       var seats = trainData.seats().sorted().toList();
