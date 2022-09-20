@@ -27,8 +27,8 @@ public class FakeServiceClient implements ServiceClient {
   public TrainData makeReservation(Reservation reservation) {
     String bookingReference = reservation.booking_reference();
     for (var seat : reservation.seats()) {
-      var matchingSeat = trainData.seats().stream().filter(s -> s.id().toString().equals(seat)).findFirst().get();
-      matchingSeat.setBookingReference(bookingReference);
+      var matchingSeat = trainData.seats().stream().filter(s -> s.id().toString().equals(seat)).findFirst();
+      matchingSeat.ifPresent(value -> value.book(bookingReference));
     }
     return trainData;
   }

@@ -15,7 +15,7 @@ public class Seat {
     return new SeatID(number, coach);
   }
 
-  public void setBookingReference(String bookingReference) {
+  public void book(String bookingReference) {
     this.bookingReference = bookingReference;
   }
 
