@@ -10,26 +10,32 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TicketOfficeTests {
+  private final String trainID = "express_2000";
+  private Train train;
   private FakeServiceClient fakeServiceClient;
+  private TicketOffice ticketOffice;
 
   @BeforeEach
   void setup() {
-    this.fakeServiceClient = new FakeServiceClient();
+    fakeServiceClient = new FakeServiceClient();
+
+    train = Helpers.makeEmptyTrain();
+    fakeServiceClient.setTrain(train);
+
+    ticketOffice = new TicketOffice(fakeServiceClient);
   }
 
   @Test
   public void bookingFourSeatsFromEmptyTrain() {
-    final String trainID = "express_2000";
-    var train = Helpers.makeEmptyTrain();
-    fakeServiceClient.setTrain(train);
-    var ticketOffice = new TicketOffice(fakeServiceClient);
-
     var newTrain = ticketOffice.reserve(trainID, 4);
 
-    var seatsWithReservation = newTrain.seats().filter(seat -> !seat.isFree()).toList();
-    assertEquals(4, seatsWithReservation.size());
+    checkReservation(newTrain);
+  }
+
+  private static void checkReservation(Train train) {
+    var seatsWithReservation = train.seats().filter(seat -> !seat.isFree()).toList();
     var seatNumbers = seatsWithReservation.stream().map(seat -> seat.id().toString()).sorted().toList();
-    var expected = List.of("1A", "2A", "3A", "4A");
+    var expected = List.of("0A", "1A", "2A", "3A");
     assertEquals(expected, seatNumbers);
   }
 

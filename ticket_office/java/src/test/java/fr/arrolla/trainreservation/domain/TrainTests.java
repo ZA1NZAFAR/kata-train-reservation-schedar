@@ -3,6 +3,8 @@ package fr.arrolla.trainreservation.domain;
 import fr.arrolla.trainreservation.Helpers;
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.IntStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -14,7 +16,7 @@ public class TrainTests {
 
     var actual = train.seatsInCoach(new CoachID("A")).sorted().toList();
 
-    assertEquals(9, actual.size());
+    assertEquals(10, actual.size());
   }
 
   @Test
@@ -31,5 +33,20 @@ public class TrainTests {
     assertThrows(NoSuchSeatException.class, () -> {
       train.book(SeatID.parse("5G"), "123");
     });
+  }
+
+  @Test
+  void computeOccupancyPerCoach() {
+    var train = Helpers.makeEmptyTrain();
+    var coach = new CoachID("A");
+    var bookingReference = "123";
+    var numbers = IntStream.range(0, 6);
+    numbers.forEach(i -> {
+      var number = new SeatNumber(Integer.toString(i));
+      var seat = new SeatID(number, coach);
+      train.book(seat, bookingReference);
+    });
+
+    assertEquals(0.6, train.occupancyForCoach(coach), 0.001);
   }
 }

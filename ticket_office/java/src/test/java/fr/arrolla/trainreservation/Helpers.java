@@ -15,7 +15,7 @@ public class Helpers {
     var letters = new String[]{"A", "B", "C", "D", "E"};
     var coachIds = Arrays.stream(letters).map(s -> new CoachID(s));
     coachIds.forEach(coachID -> {
-      var numbers = IntStream.range(1, 10);
+      var numbers = IntStream.range(0, 10);
       var seatsNumbers = numbers.mapToObj(i -> new SeatNumber(Integer.toString(i)));
       seatsNumbers.forEach(seatNumber -> {
         var seat = new Seat(seatNumber, coachID, null);

@@ -62,4 +62,8 @@ public class Seat implements Comparable<Seat> {
   public int compareTo(Seat other) {
     return this.id().compareTo(other.id());
   }
+
+  public boolean isOccupied() {
+    return !this.isFree();
+  }
 }

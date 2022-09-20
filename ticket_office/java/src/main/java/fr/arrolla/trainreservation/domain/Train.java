@@ -39,4 +39,11 @@ public class Train {
     }
     seat.book(bookingReference);
   }
+
+  public double occupancyForCoach(CoachID coach) {
+    var seats = seatsInCoach(coach).toList();
+    var total = seats.size();
+    var occupied = seats.stream().filter(Seat::isOccupied).count();
+    return occupied * 1.0f / total;
+  }
 }

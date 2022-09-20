@@ -3,14 +3,14 @@ package fr.arrolla.trainreservation.infra;
 import fr.arrolla.trainreservation.FakeServiceClient;
 import fr.arrolla.trainreservation.domain.ServiceClient;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-@SpringBootTest
+@TestConfiguration
 public class TestConfig {
 
   @Bean
