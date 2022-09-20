@@ -3,7 +3,6 @@ package fr.arrolla.trainreservation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import fr.arrolla.trainreservation.domain.BookingRequest;
-import fr.arrolla.trainreservation.infra.TrainDataParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +13,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest()
 @AutoConfigureMockMvc
 @Import(TestConfig.class)
 class EndToEndTests {
@@ -59,18 +56,7 @@ class EndToEndTests {
 
     var result = mockMvc.perform(post(url).contentType(APPLICATION_JSON_UTF8)
         .content(requestJson))
-      .andExpect(status().isOk())
-      .andReturn()
-      .getResponse();
-
-    var body = result.getContentAsString();
-    var parser = new TrainDataParser();
-    var newTrain = parser.parse(body);
-    var seatsWithReservation = newTrain.seats().filter(seat -> !seat.isFree()).toList();
-    assertEquals(4, seatsWithReservation.size());
-    var seatNumbers = seatsWithReservation.stream().map(seat -> seat.id().toString()).sorted().toList();
-    var expected = List.of("1A", "2A", "3A", "4A");
-    assertEquals(expected, seatNumbers);
+      .andExpect(status().isOk());
   }
 
 }

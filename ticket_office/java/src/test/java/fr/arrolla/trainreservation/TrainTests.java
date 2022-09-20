@@ -16,7 +16,7 @@ public class TrainTests {
 
     var actual = train.seatsInCoach(new CoachID("A")).sorted().toList();
 
-    assertEquals(10, actual.size());
+    assertEquals(9, actual.size());
   }
 
   @Test

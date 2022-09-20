@@ -1,10 +1,10 @@
 package fr.arrolla.trainreservation;
 
 import fr.arrolla.trainreservation.domain.ServiceClient;
-import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 
-@TestConfiguration
+@SpringBootTest
 public class TestConfig {
 
   @Bean
