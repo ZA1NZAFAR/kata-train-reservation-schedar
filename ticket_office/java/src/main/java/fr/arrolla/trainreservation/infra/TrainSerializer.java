@@ -7,7 +7,7 @@ import fr.arrolla.trainreservation.domain.Train;
 
 import java.util.HashMap;
 
-public class TrainDataSerializer {
+public class TrainSerializer {
   public String serialize(Train train) {
     HashMap<String, HashMap<String, String>> seats = new HashMap<>();
     train.seats().forEach(seat -> {

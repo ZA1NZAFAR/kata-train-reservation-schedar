@@ -10,9 +10,11 @@ public class TicketOffice {
   }
 
   public Train reserve(String trainId, int seatCount) {
+    // Fetch booking reference and train data using the serviceClient
     var bookingReference = serviceClient.getNewBookingReference();
     var train = serviceClient.getTrain(trainId);
 
+    // Find available seats
     var inFirstCoach = train.seatsInCoach(new CoachID("A"));
     var availableSeats = inFirstCoach.filter(Seat::isFree).sorted().toList();
 
@@ -22,9 +24,10 @@ public class TicketOffice {
       seats.add(availableSeat.id().toString());
     }
 
+    // Make the reservation
     var reservation = new Reservation(trainId, bookingReference, seats);
-
     var updatedTrain = serviceClient.makeReservation(reservation);
+
     return updatedTrain;
   }
 }
