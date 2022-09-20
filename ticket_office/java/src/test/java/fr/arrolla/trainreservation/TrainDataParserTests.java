@@ -4,7 +4,7 @@ import fr.arrolla.trainreservation.infra.TrainDataParser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TrainDataParserTests {
   @Test
@@ -36,7 +36,7 @@ public class TrainDataParserTests {
     var seat2 = seats.get(1);
     assertEquals("A", seat1.coach().toString());
     assertEquals("1", seat1.number().toString());
-    assertNull(seat1.bookingReference());
+    assertTrue(seat1.isFree());
     assertEquals("B", seat2.coach().toString());
     assertEquals("1", seat2.number().toString());
     assertEquals("abcdef123", seat2.bookingReference());

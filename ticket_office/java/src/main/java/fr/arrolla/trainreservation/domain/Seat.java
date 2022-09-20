@@ -19,6 +19,10 @@ public class Seat {
     this.bookingReference = bookingReference;
   }
 
+  public boolean isFree() {
+    return this.bookingReference == null;
+  }
+
   public SeatNumber number() {
     return number;
   }

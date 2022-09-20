@@ -14,11 +14,10 @@ public class TrainDataSerializer {
       HashMap<String, String> seatMap = new HashMap<>();
       seatMap.put("coach", seat.coach().toString());
       seatMap.put("seat_number", seat.number().toString());
-      var bookingReference = seat.bookingReference();
-      if (bookingReference == null) {
+      if (seat.isFree()) {
         seatMap.put("booking_reference", "");
       } else {
-        seatMap.put("booking_reference", bookingReference);
+        seatMap.put("booking_reference", seat.bookingReference());
       }
       seats.put(seat.id().toString(), seatMap);
     }

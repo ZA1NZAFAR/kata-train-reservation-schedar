@@ -70,7 +70,7 @@ class TicketOfficeTests {
 
     assertNotNull(newTrainData);
 
-    var seatsWithReservation = newTrainData.seats().stream().filter(seat -> seat.bookingReference() != null).toList();
+    var seatsWithReservation = newTrainData.seats().stream().filter(seat -> !seat.isFree()).toList();
     assertEquals(4, seatsWithReservation.size());
     var seatNumbers = seatsWithReservation.stream().map(seat -> seat.id().toString()).sorted().toList();
     var expected = List.of("1A", "2A", "3A", "4A");

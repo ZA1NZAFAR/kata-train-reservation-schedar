@@ -2,6 +2,7 @@ package fr.arrolla.trainreservation.infra;
 
 import fr.arrolla.trainreservation.domain.BookingRequest;
 import fr.arrolla.trainreservation.domain.Reservation;
+import fr.arrolla.trainreservation.domain.Seat;
 import fr.arrolla.trainreservation.domain.ServiceClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ public class BookingController {
     var bookingReference = serviceClient.getNewBookingReference();
     var trainData = serviceClient.getTrainData(trainId);
     var inFirstCoach = trainData.seats().stream().filter(seat -> seat.coach().toString().equals("A"));
-    var availableSeats = inFirstCoach.filter(seat -> seat.bookingReference() == null).toList();
+    var availableSeats = inFirstCoach.filter(Seat::isFree).toList();
 
     var seats = new ArrayList<String>();
     for (int i = 0; i < seatCount; i++) {
