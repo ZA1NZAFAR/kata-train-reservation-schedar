@@ -1,6 +1,5 @@
 package fr.arrolla.trainreservation.domain;
 
-import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class SeatFinder {
@@ -11,19 +10,11 @@ public class SeatFinder {
   }
 
   public Stream<SeatID> findSeats(int seatCount) {
-    var toReserve = new ArrayList<SeatID>();
     var coach = findBestCoach(seatCount);
-    if (coach == null) {
-      throw new NotEnoughFreeSeatsException();
-    }
-
     var inCoach = train.seatsInCoach(coach);
-    var availableSeatsInCoach = inCoach.filter(Seat::isFree).sorted().toList();
-    for (int i = 0; i < seatCount; i++) {
-      toReserve.add(availableSeatsInCoach.get(i).id());
-    }
-
-    return toReserve.stream();
+    var availableSeatsInCoach = inCoach.filter(Seat::isFree).sorted();
+    var toBook = availableSeatsInCoach.limit(seatCount);
+    return toBook.map(s -> s.id());
   }
 
   private CoachID findBestCoach(int seatCount) {
@@ -32,7 +23,7 @@ public class SeatFinder {
         return coach;
       }
     }
-    return null;
+    throw new NotEnoughFreeSeatsException();
   }
 
 }
