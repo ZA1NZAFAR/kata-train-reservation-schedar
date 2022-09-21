@@ -11,7 +11,6 @@ public class SeatFinder {
   }
 
   public Stream<SeatID> findSeats(int seatCount) {
-    // Find available seat
     var inFirstCoach = train.seatsInCoach(new CoachID("A"));
     var availableSeats = inFirstCoach.filter(Seat::isFree).sorted().toList();
 

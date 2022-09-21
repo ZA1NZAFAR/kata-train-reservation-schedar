@@ -1,6 +1,5 @@
 package fr.arrolla.trainreservation.infra;
 
-import fr.arrolla.trainreservation.domain.BookingRequest;
 import fr.arrolla.trainreservation.domain.ServiceClient;
 import fr.arrolla.trainreservation.domain.TicketOffice;
 import org.springframework.web.bind.annotation.RequestBody;

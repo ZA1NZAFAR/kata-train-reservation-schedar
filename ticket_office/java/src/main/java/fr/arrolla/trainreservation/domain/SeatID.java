@@ -12,6 +12,14 @@ public class SeatID implements Comparable<SeatID> {
     this.coach = coach;
   }
 
+  public SeatNumber getNumber() {
+    return number;
+  }
+
+  public CoachID getCoach() {
+    return coach;
+  }
+
   public static SeatID parse(String s) {
     var numberString = s.substring(0, 1);
     var coachString = s.substring(1, 2);

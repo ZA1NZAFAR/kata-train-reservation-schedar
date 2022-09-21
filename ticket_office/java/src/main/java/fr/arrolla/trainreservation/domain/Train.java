@@ -40,6 +40,11 @@ public class Train {
     seat.book(bookingReference);
   }
 
+  public void applyReservation(Reservation reservation) {
+    String bookingReference = reservation.bookingReference();
+    reservation.seats().forEach(s -> book(s, bookingReference));
+  }
+
   public double occupancyForCoach(CoachID coach) {
     var seats = seatsInCoach(coach).toList();
     var total = seats.size();

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import fr.arrolla.trainreservation.FakeServiceClient;
 import fr.arrolla.trainreservation.Helpers;
-import fr.arrolla.trainreservation.domain.BookingRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

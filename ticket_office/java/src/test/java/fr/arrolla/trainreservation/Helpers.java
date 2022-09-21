@@ -1,13 +1,11 @@
 package fr.arrolla.trainreservation;
 
-import fr.arrolla.trainreservation.domain.CoachID;
-import fr.arrolla.trainreservation.domain.Seat;
-import fr.arrolla.trainreservation.domain.SeatNumber;
-import fr.arrolla.trainreservation.domain.Train;
+import fr.arrolla.trainreservation.domain.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Helpers {
   public static Train makeEmptyTrain() {
@@ -24,5 +22,14 @@ public class Helpers {
     });
 
     return new Train(seats);
+  }
+
+  public static Train trainWithBookedSeats(Stream<String> booked) {
+    var train = makeEmptyTrain();
+    var seatIDs = booked.map(s -> SeatID.parse(s));
+    seatIDs.forEach(seatID -> {
+      train.book(seatID, "old");
+    });
+    return train;
   }
 }
