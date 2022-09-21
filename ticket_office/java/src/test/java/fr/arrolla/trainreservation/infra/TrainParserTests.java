@@ -27,7 +27,7 @@ public class TrainParserTests {
 
     var parser = new TrainParser();
 
-    var train = parser.parse(json);
+    var train = parser.parse("express_2000", json);
 
     var seats = train.seats().sorted().toList();
     assertEquals(2, seats.size());

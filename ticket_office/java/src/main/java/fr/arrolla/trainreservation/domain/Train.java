@@ -6,11 +6,15 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Train {
+  private final String id;
+
   private final HashMap<SeatID, Seat> seats = new HashMap<>();
   private final HashSet<CoachID> coaches = new HashSet<>();
 
 
-  public Train(List<Seat> seats) {
+  public Train(String id, List<Seat> seats) {
+    this.id = id;
+    
     seats.forEach(seat -> {
       this.seats.put(seat.id(), seat);
       this.coaches.add(seat.coach());

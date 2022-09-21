@@ -25,18 +25,19 @@ public class HttpServiceClient implements ServiceClient {
   public Train getTrain(String trainId) {
     var json = restTemplate.getForObject(baseUrl + "/data_for_train/" + trainId, String.class);
     var parser = new TrainParser();
-    return parser.parse(json);
+    return parser.parse(trainId, json);
   }
 
   @Override
   public Train makeReservation(Reservation reservation) {
+    String trainID = reservation.trainID();
     Map<String, Object> payload = new HashMap<>();
     payload.put("train_id", reservation.trainID());
     payload.put("seats", reservation.seats().stream().map(s -> s.toString()));
     payload.put("booking_reference", reservation.bookingReference());
     String json = restTemplate.postForObject(baseUrl + "/reserve", payload, String.class);
     var parser = new TrainParser();
-    return parser.parse(json);
+    return parser.parse(trainID, json);
   }
 
   @Override

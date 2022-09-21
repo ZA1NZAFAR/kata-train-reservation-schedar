@@ -21,7 +21,7 @@ public class Helpers {
       });
     });
 
-    return new Train(seats);
+    return new Train("express_2000", seats);
   }
 
   public static Train trainWithBookedSeats(Stream<String> booked) {

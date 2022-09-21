@@ -11,7 +11,7 @@ import fr.arrolla.trainreservation.domain.Train;
 import java.util.ArrayList;
 
 public class TrainParser {
-  public Train parse(String json) {
+  public Train parse(String id, String json) {
     ObjectMapper objectMapper = new ObjectMapper();
     ArrayList<Seat> seats = new ArrayList<>();
     try {
@@ -32,6 +32,6 @@ public class TrainParser {
       throw new RuntimeException(e);
     }
 
-    return new Train(seats);
+    return new Train(id, seats);
   }
 }
