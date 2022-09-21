@@ -5,16 +5,15 @@ public class Seat implements Comparable<Seat> {
   private final CoachID coach;
   private String bookingReference;
 
+  public Seat(SeatNumber number, CoachID coach) {
+    this(number, coach, null);
+  }
+
   public Seat(SeatNumber number, CoachID coach, String bookingReference) {
     this.number = number;
     this.coach = coach;
     this.bookingReference = bookingReference;
   }
-
-  public Seat(SeatNumber number, CoachID coach) {
-    this(number, coach, null);
-  }
-
 
   public void book(String bookingReference) {
     if (this.isFree()) {

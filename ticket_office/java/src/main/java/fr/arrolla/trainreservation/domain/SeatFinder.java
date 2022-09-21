@@ -11,15 +11,28 @@ public class SeatFinder {
   }
 
   public Stream<SeatID> findSeats(int seatCount) {
-    var inFirstCoach = train.seatsInCoach(new CoachID("A"));
-    var availableSeats = inFirstCoach.filter(Seat::isFree).sorted().toList();
-
-    var seats = new ArrayList<SeatID>();
-    for (int i = 0; i < seatCount; i++) {
-      var availableSeat = availableSeats.get(i);
-      seats.add(availableSeat.id());
+    var toReserve = new ArrayList<SeatID>();
+    var coach = findBestCoach(seatCount);
+    if (coach == null) {
+      throw new NotEnoughFreeSeatsException();
     }
-    return seats.stream();
+
+    var inCoach = train.seatsInCoach(coach);
+    var availableSeatsInCoach = inCoach.filter(Seat::isFree).sorted().toList();
+    for (int i = 0; i < seatCount; i++) {
+      toReserve.add(availableSeatsInCoach.get(i).id());
+    }
+
+    return toReserve.stream();
+  }
+
+  private CoachID findBestCoach(int seatCount) {
+    for (var coach : train.getCoaches()) {
+      if (train.occupancyForCoachAfterBooking(coach, seatCount) <= 0.7) {
+        return coach;
+      }
+    }
+    return null;
   }
 
 }

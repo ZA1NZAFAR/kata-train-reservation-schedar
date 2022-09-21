@@ -3,12 +3,19 @@ package fr.arrolla.trainreservation.domain;
 import fr.arrolla.trainreservation.Helpers;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TrainTests {
+  @Test
+  void getCoaches() {
+    var train = Helpers.makeEmptyTrain();
+    var returnedLetters = train.getCoaches().stream().map(c -> c.toString()).toList();
+    assertEquals(List.of("A", "B", "C", "D", "E"), returnedLetters);
+  }
 
   @Test
   void getSeatsInCoach() {

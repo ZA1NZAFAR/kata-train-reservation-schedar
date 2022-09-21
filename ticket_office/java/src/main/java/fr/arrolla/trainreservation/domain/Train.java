@@ -14,7 +14,7 @@ public class Train {
 
   public Train(String id, List<Seat> seats) {
     this.id = id;
-    
+
     seats.forEach(seat -> {
       this.seats.put(seat.id(), seat);
       this.coaches.add(seat.coach());
@@ -53,6 +53,33 @@ public class Train {
     var seats = seatsInCoach(coach).toList();
     var total = seats.size();
     var occupied = seats.stream().filter(Seat::isBooked).count();
-    return occupied * 1.0f / total;
+    return occupied * 1.0 / total;
+  }
+
+  public List<CoachID> getCoaches() {
+    return coaches.stream().toList();
+  }
+
+  public double occupancyForCoachAfterBooking(CoachID coach, int seatCount) {
+    var seats = seatsInCoach(coach).toList();
+    var total = seats.size();
+    var occupied = seats.stream().filter(Seat::isBooked).count() + seatCount;
+    return occupied * 1.0 / total;
+  }
+
+  @Override
+  public String toString() {
+    String res = "";
+    for (var coach : coaches.stream().sorted().toList()) {
+      for (var seat : seatsInCoach(coach).sorted().toList()) {
+        var seatID = seat.id().toString();
+        res += seatID;
+        if (seat.isBooked()) {
+          res += " " + seat.bookingReference();
+        }
+        res += "\n";
+      }
+    }
+    return res;
   }
 }
