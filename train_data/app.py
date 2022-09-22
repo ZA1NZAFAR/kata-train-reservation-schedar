@@ -17,7 +17,20 @@ this will return a json document with information about the seats that
 this train has. The document you get back will look for example like
 this:
 
-    {"seats": {"1A": {"booking_reference": "", "seat_number": "1", "coach": "A"}, "2A": {"booking_reference": "", "seat_number": "2", "coach": "A"}}}
+{
+    "seats": {
+        "1A": {
+            "booking_reference": "abc123def",
+            "seat_number": "1",
+            "coach": "A"
+        },
+        "2A": {
+            "booking_reference": "",
+            "seat_number": "2",
+            "coach": "A"
+        }
+    }
+}
 
 Note I've left out all the extraneous details about where the train is
 going to and from, at what time, whether there's a buffet car etc. All
