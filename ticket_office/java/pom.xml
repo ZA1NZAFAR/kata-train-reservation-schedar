@@ -8,7 +8,7 @@
     <version>3.0.0-M4</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
-  <groupId>fr.arrolla</groupId>
+  <groupId>fr.arolla</groupId>
   <artifactId>train-reservation</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>train-reservation</name>
