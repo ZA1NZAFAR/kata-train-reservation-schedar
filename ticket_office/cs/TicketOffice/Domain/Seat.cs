@@ -2,12 +2,19 @@
 
 public class Seat
 {
-    public string? BookingReference { get; private set; }
     public string Id { get; }
+    public string? BookingReference { get; private set; }
 
     public Seat(string id)
     {
         Id = id;
+        BookingReference = null;
+    }
+
+    public Seat(string id, string bookingReference)
+    {
+        Id = id;
+        BookingReference = bookingReference;
     }
 
     public bool IsBooked() => BookingReference != null;

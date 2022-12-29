@@ -8,7 +8,6 @@ public class TrainDataParser
     public static Train Parse(string json)
     {
         var train = new Train();
-
         var data = JObject.Parse(json);
         var jsonSeats = data["seats"].Values();
         foreach (var jsonSeat in jsonSeats)
@@ -16,15 +15,17 @@ public class TrainDataParser
             var seatNumber = jsonSeat["seat_number"].Value<string>();
             var coachId = jsonSeat["coach"].Value<string>();
             var seatId = seatNumber + coachId;
-            var seat = new Seat(seatId);
             var jsonBookingReference = jsonSeat["booking_reference"].Value<string>();
             if (!jsonBookingReference.Equals(""))
             {
-                {
-                    seat.Book(jsonBookingReference);
-                }
+                var seat = new Seat(seatId, jsonBookingReference);
+                train.Add(seat);
             }
-            train.Add(seat);
+            else
+            {
+                var seat = new Seat(seatId);
+                train.Add(seat);
+            }
 
         }
         return train;

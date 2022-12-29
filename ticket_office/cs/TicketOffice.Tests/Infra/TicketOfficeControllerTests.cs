@@ -1,6 +1,6 @@
 ﻿using TicketOffice.Controllers;
 
-namespace TicketOffice.Tests;
+namespace TicketOffice.Tests.Infra;
 
 public class TicketOfficeControllerTests
 {
