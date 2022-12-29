@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using TicketOffice.Domain;
 
-namespace TicketOffice;
+namespace TicketOffice.Infra;
 
 public class RestClient : IRestClient
 {

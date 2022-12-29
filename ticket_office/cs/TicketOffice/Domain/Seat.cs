@@ -1,4 +1,4 @@
-﻿namespace TicketOffice.Tests;
+﻿namespace TicketOffice.Domain;
 
 public class Seat
 {

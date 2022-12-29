@@ -1,4 +1,4 @@
-﻿namespace TicketOffice.Tests;
+﻿namespace TicketOffice.Domain;
 
 // Note: no ID - we are not in the same bounded context
 // as train_data
@@ -15,18 +15,18 @@ public class Train
         return new List<Seat>();
     }
 
-    internal void Add(Seat seat)
+    public void Add(Seat seat)
     {
         _seats[seat.Id] = seat;
     }
 
-    internal void Book(string seatId, string bookingReference)
+    public void Book(string seatId, string bookingReference)
     {
         var seat = GetSeat(seatId);
         seat.Book(bookingReference);
     }
 
-    internal Seat GetSeat(string id)
+    public Seat GetSeat(string id)
     {
         var res = _seats.GetValueOrDefault(id);
         if (res == null)

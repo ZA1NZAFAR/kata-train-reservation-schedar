@@ -1,4 +1,7 @@
-﻿namespace TicketOffice;
+﻿using TicketOffice.Domain;
+using TicketOffice.Infra;
+
+namespace TicketOffice;
 
 public class Startup
 

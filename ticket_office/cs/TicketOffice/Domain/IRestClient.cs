@@ -1,4 +1,4 @@
-﻿namespace TicketOffice;
+﻿namespace TicketOffice.Domain;
 
 public interface IRestClient
 {

@@ -1,4 +1,6 @@
-﻿namespace TicketOffice.Tests;
+﻿using TicketOffice.Domain;
+
+namespace TicketOffice.Tests.Domain;
 
 public class TrainTests
 {

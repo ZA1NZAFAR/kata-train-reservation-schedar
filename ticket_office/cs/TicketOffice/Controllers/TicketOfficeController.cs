@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using TicketOffice.Domain;
 
 namespace TicketOffice.Controllers;
 public record BookingRequest(string train_id, int count) { }
