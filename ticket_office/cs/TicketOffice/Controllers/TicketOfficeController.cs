@@ -27,7 +27,7 @@ public class TicketOfficeController : ControllerBase
         var bookingReference = await _restClient.GetBookingReference();
 
         // Step 2 : Get the train data from the 'train_data' service
-        var json = await _restClient.GetTrain(trainId);
+        var json = await _restClient.GetTrainData(trainId);
         var data = JObject.Parse(json);
         var jsonSeats = data["seats"].Values();
         var availaibleSeats = new List<string>();
