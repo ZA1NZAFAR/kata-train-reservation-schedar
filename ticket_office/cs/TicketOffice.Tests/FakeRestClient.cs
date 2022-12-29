@@ -20,12 +20,6 @@ public class FakeRestClient : IRestClient
         return Task.FromResult(_count.ToString());
     }
 
-    public Task<string> GetTrainData(string trainId)
-    {
-        return Task.FromResult("");
-    }
-
-
     public Task MakeReserveration(string trainId, string bookingReference, IEnumerable<string> seats)
     {
         foreach (var seat in seats)
@@ -34,4 +28,7 @@ public class FakeRestClient : IRestClient
         }
         return Task.CompletedTask;
     }
+
+    public Task<Train> GetTrain(string trainId) => Task.FromResult(Train);
+
 }

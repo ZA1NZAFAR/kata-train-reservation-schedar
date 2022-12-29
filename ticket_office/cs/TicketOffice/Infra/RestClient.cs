@@ -20,11 +20,12 @@ public class RestClient : IRestClient
         return await response.Content.ReadAsStringAsync();
     }
 
-    public async Task<string> GetTrainData(string trainId)
+    public async Task<Train> GetTrain(string trainId)
     {
         var response = await _httpClient.GetAsync($"http://127.0.0.1:8081/data_for_train/{trainId}");
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadAsStringAsync();
+        var json = await response.Content.ReadAsStringAsync();
+        return TrainDataParser.Parse(json);
     }
 
     public async Task MakeReserveration(string trainId, string bookingReference, IEnumerable<string> seats)
