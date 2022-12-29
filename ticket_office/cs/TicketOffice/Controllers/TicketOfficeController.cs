@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Net.Http.Headers;
 
 namespace TicketOffice.Controllers;
 public record BookingRequest(string train_id, int count) { }
@@ -11,6 +9,12 @@ public record BookingResponse(string booking_reference, List<string> seats) { }
 [Route("reserve")]
 public class TicketOfficeController : ControllerBase
 {
+    private readonly IRestClient _restClient;
+
+    public TicketOfficeController(IRestClient restClient)
+    {
+        _restClient = restClient;
+    }
 
     [HttpPost(Name = "reserve")]
     public async Task<BookingResponse> Reserve(BookingRequest request)
@@ -20,15 +24,10 @@ public class TicketOfficeController : ControllerBase
         var count = request.count;
 
         // Step 1: Get a new booking reference from the 'booking_reference' service
-        var client = new HttpClient();
-        var response = await client.GetAsync("http://127.0.0.1:8082/booking_reference");
-        response.EnsureSuccessStatusCode();
-        var bookingReference = await response.Content.ReadAsStringAsync();
+        var bookingReference = await _restClient.GetBookingReference();
 
         // Step 2 : Get the train data from the 'train_data' service
-        response = await client.GetAsync($"http://127.0.0.1:8081/data_for_train/{request.train_id}");
-        response.EnsureSuccessStatusCode();
-        var json = await response.Content.ReadAsStringAsync();
+        var json = await _restClient.GetTrain(trainId);
         var data = JObject.Parse(json);
         var jsonSeats = data["seats"].Values();
         var availaibleSeats = new List<string>();
@@ -43,16 +42,7 @@ public class TicketOfficeController : ControllerBase
         var seatsToBook = availaibleSeats.Take(count).ToList();
 
         // Step 3: make the reservation on the 'train data' servie
-        var reservation = new Dictionary<string, object>
-        {
-            { "train_id", trainId },
-            { "seats", seatsToBook },
-            { "booking_reference", bookingReference }
-        };
-        var reservationContent = new StringContent(JsonConvert.SerializeObject(reservation));
-        reservationContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-        response = await client.PostAsync("http://127.0.0.1:8081/reserve", reservationContent);
-        response.EnsureSuccessStatusCode();
+        await _restClient.MakeReserveration(trainId, bookingReference, seatsToBook);
 
         // Step 4: return the booking response
         var result = new BookingResponse(bookingReference, seatsToBook);
