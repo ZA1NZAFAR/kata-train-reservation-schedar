@@ -26,7 +26,10 @@ public class FakeRestClient : IRestClient
 
     public Task MakeReserveration(string trainId, string bookingReference, IEnumerable<string> seats)
     {
-        // Todo: make it fail when there's a reservation conflict
+        foreach (var seat in seats)
+        {
+            Train.Book(seat, bookingReference);
+        }
         return Task.CompletedTask;
     }
 }

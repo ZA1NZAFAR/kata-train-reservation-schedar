@@ -7,9 +7,10 @@ public class FakeRestClientTests
     [SetUp]
     public void SetUp()
     {
-        _train = new Train();
+        _train = Helpers.MakeEmptyTrain();
         _fakeRestClient = new FakeRestClient(_train);
     }
+
     [Test]
     public async Task return_different_booking_references_when_called()
     {
@@ -20,10 +21,28 @@ public class FakeRestClientTests
     }
 
     [Test]
-    public void return_configured_train()
+    public void can_make_reservation()
     {
-        var returnedTrain = _fakeRestClient.Train;
+        _fakeRestClient.MakeReserveration("express_2000", "abc123", new[] { "1A", "2A" });
 
-        Assert.That(returnedTrain.Seats(), Is.EqualTo(_train.Seats()));
+        var train = _fakeRestClient.Train;
+
+        foreach (var seatId in new[] { "1A", "2A" })
+        {
+            var seat = train.GetSeat(seatId);
+            Assert.That(seat.BookingReference!, Is.EqualTo("abc123"));
+        }
+    }
+
+    [Test]
+    public void throw_when_booking_conflict()
+    {
+        var train = _fakeRestClient.Train;
+
+        train.Book("2A", "old-reference");
+
+        Assert.Throws<AlreadyBookedException>(() =>
+            _fakeRestClient.MakeReserveration("express_2000", "new-reference", new[] { "1A", "2A" })
+        );
     }
 }
