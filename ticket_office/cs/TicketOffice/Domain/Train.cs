@@ -12,7 +12,7 @@ public class Train
     }
     public List<Seat> Seats()
     {
-        return new List<Seat>();
+        return _seats.Values.ToList();
     }
 
     public void Add(Seat seat)
