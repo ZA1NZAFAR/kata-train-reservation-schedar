@@ -4,23 +4,24 @@ import fr.arolla.trainreservation.domain.ServiceClient;
 import fr.arolla.trainreservation.domain.Train;
 import fr.arolla.trainreservation.infra.Reservation;
 
-import java.util.ArrayList;
-
 public class FakeRestClient implements ServiceClient {
   private final Train train;
+  private int counter;
 
   public FakeRestClient(Train train) {
     this.train = train;
+    this.counter = 0;
   }
 
   @Override
   public String getBookingReference() {
-    return "123abc";
+    counter++;
+    return Integer.toString(counter);
   }
 
   @Override
   public Train getTrain(String trainId) {
-    return new Train(new ArrayList<>());
+    return this.train;
   }
 
   @Override
