@@ -4,6 +4,7 @@ import fr.arolla.trainreservation.domain.ServiceClient;
 import fr.arolla.trainreservation.domain.Train;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class RestClient implements ServiceClient {
@@ -25,7 +26,11 @@ public class RestClient implements ServiceClient {
   }
 
   @Override
-  public void makeReservation(Map<String, Object> payload) {
+  public void makeReservation(Reservation reservation) {
+    Map<String, Object> payload = new HashMap<>();
+    payload.put("train_id", reservation.trainId());
+    payload.put("seats", reservation.seats());
+    payload.put("booking_reference", reservation.bookingReference());
     restTemplate.postForObject("http://127.0.0.1:8081/reserve", payload, String.class);
   }
 }

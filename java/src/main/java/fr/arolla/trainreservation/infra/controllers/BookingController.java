@@ -1,12 +1,10 @@
 package fr.arolla.trainreservation.infra.controllers;
 
 import fr.arolla.trainreservation.domain.ServiceClient;
+import fr.arolla.trainreservation.infra.Reservation;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 @RestController
@@ -37,12 +35,8 @@ public class BookingController {
     // Step 4: call the '/reserve' end point
     var toReserve = availableSeats.limit(seatCount);
     var ids = toReserve.map(seat -> seat.number() + seat.coach()).toList();
-
-    Map<String, Object> payload = new HashMap<>();
-    payload.put("train_id", trainId);
-    payload.put("seats", ids);
-    payload.put("booking_reference", bookingReference);
-    client.makeReservation(payload);
+    var reservation = new Reservation(trainId, ids, bookingReference);
+    client.makeReservation(reservation);
 
     // Step 5: return reference and booked seats
     return new BookingResponse(bookingReference, ids);

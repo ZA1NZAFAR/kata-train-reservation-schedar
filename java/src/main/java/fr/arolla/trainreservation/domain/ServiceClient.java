@@ -1,11 +1,11 @@
 package fr.arolla.trainreservation.domain;
 
-import java.util.Map;
+import fr.arolla.trainreservation.infra.Reservation;
 
 public interface ServiceClient {
   String getBookingReference();
 
   Train getTrain(String trainId);
 
-  void makeReservation(Map<String, Object> payload);
+  void makeReservation(Reservation reservation);
 }
