@@ -24,7 +24,7 @@ public class BookingController {
     var trainId = bookingRequest.train_id();
 
 
-    // Step 1: Get a booking refenrence
+    // Step 1: Get a booking reference
     var bookingReference = client.getBookingReference();
 
     // Step 2: Retrieve train data for the given train ID
