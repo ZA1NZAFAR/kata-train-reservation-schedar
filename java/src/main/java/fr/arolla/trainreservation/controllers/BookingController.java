@@ -3,11 +3,11 @@ package fr.arolla.trainreservation.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.arolla.trainreservation.RestClient;
 import fr.arolla.trainreservation.Seat;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +16,10 @@ import java.util.Map;
 
 @RestController
 public class BookingController {
+  private final RestClient client;
 
   BookingController() {
+    client = new RestClient();
   }
 
 
@@ -27,11 +29,10 @@ public class BookingController {
     var trainId = bookingRequest.train_id();
 
     // Step 1: Get a booking refenrence
-    var restTemplate = new RestTemplate();
-    var bookingReference = restTemplate.getForObject("http://127.0.0.1:8082/booking_reference", String.class);
+    var bookingReference = client.getBookingReference();
 
     // Step 2: Retrieve train data for the given train ID
-    var json = restTemplate.getForObject("http://127.0.0.1:8081/data_for_train/" + trainId, String.class);
+    var json = client.getTrainData(trainId);
     ObjectMapper objectMapper = new ObjectMapper();
     ArrayList<Seat> seats = new ArrayList<>();
     try {
@@ -65,7 +66,7 @@ public class BookingController {
     payload.put("train_id", trainId);
     payload.put("seats", ids);
     payload.put("booking_reference", bookingReference);
-    restTemplate.postForObject("http://127.0.0.1:8081/reserve", payload, String.class);
+    client.makeReservation(payload);
 
     // Step 5: return reference and booked seats
     return new BookingResponse(bookingReference, ids);
