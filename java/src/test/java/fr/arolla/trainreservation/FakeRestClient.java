@@ -25,6 +25,6 @@ public class FakeRestClient implements ServiceClient {
 
   @Override
   public void makeReservation(Reservation reservation) {
-
+    train.book(reservation);
   }
 }
