@@ -29,6 +29,10 @@ public final class Seat {
     return coach;
   }
 
+  public String id() {
+    return this.number + this.coach;
+  }
+
   public String bookingReference() {
     return bookingReference;
   }

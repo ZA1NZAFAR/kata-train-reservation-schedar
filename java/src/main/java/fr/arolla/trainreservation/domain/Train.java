@@ -10,8 +10,7 @@ public class Train {
 
   public Train(List<Seat> seats) {
     for (var seat : seats) {
-      var seatId = seat.number() + seat.coach();
-      this.seats.put(seatId, seat);
+      this.seats.put(seat.id(), seat);
     }
   }
 
