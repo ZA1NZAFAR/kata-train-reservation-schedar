@@ -16,7 +16,7 @@ public final class Seat {
   public void book(String bookingReference) {
     var oldBookingReference = this.bookingReference;
     if (!oldBookingReference.equals("") && oldBookingReference != bookingReference) {
-      throw new RuntimeException(String.format("Booking conflict. Seat already booked with %s", oldBookingReference));
+      throw new AlreadyBookedException(oldBookingReference, bookingReference);
     }
     this.bookingReference = bookingReference;
   }

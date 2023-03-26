@@ -10,7 +10,7 @@ public class Train {
 
   public Train(List<Seat> seats) {
     for (var seat : seats) {
-      var seatId = seat.coach() + seat.number();
+      var seatId = seat.number() + seat.coach();
       this.seats.put(seatId, seat);
     }
   }
@@ -27,8 +27,11 @@ public class Train {
     }
   }
 
-  private void bookSeat(String seatId, String bookingReference) {
+  public void bookSeat(String seatId, String bookingReference) {
     var seat = this.seats.get(seatId);
+    if (seat == null) {
+      throw new NoSuchSeatException(seatId);
+    }
     seat.book(bookingReference);
   }
 }
