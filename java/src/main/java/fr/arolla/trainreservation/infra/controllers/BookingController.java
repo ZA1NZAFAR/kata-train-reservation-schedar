@@ -1,6 +1,6 @@
-package fr.arolla.trainreservation.controllers;
+package fr.arolla.trainreservation.infra.controllers;
 
-import fr.arolla.trainreservation.ServiceClient;
+import fr.arolla.trainreservation.domain.ServiceClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

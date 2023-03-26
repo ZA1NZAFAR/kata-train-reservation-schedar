@@ -1,5 +1,6 @@
-package fr.arolla.trainreservation;
+package fr.arolla.trainreservation.infra;
 
+import fr.arolla.trainreservation.domain.ServiceClient;
 import org.springframework.context.annotation.Bean;
 
 @org.springframework.context.annotation.Configuration

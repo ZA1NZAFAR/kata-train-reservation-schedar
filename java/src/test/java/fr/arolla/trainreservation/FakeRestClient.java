@@ -1,5 +1,8 @@
 package fr.arolla.trainreservation;
 
+import fr.arolla.trainreservation.domain.ServiceClient;
+import fr.arolla.trainreservation.domain.Train;
+
 import java.util.ArrayList;
 import java.util.Map;
 

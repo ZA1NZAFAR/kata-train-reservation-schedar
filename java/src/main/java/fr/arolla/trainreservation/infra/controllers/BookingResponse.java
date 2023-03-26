@@ -1,4 +1,4 @@
-package fr.arolla.trainreservation.controllers;
+package fr.arolla.trainreservation.infra.controllers;
 
 import java.util.List;
 

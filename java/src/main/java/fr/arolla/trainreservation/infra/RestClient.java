@@ -1,5 +1,7 @@
-package fr.arolla.trainreservation;
+package fr.arolla.trainreservation.infra;
 
+import fr.arolla.trainreservation.domain.ServiceClient;
+import fr.arolla.trainreservation.domain.Train;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;

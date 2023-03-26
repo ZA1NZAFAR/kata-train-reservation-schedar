@@ -1,4 +1,4 @@
-package fr.arolla.trainreservation.controllers;
+package fr.arolla.trainreservation.infra.controllers;
 
 import fr.arolla.trainreservation.FakeRestClient;
 import org.junit.jupiter.api.Test;
