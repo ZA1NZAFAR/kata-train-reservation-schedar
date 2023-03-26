@@ -1,5 +1,6 @@
 package fr.arolla.trainreservation;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class FakeRestClient implements ServiceClient {
@@ -9,8 +10,8 @@ public class FakeRestClient implements ServiceClient {
   }
 
   @Override
-  public String getTrainData(String trainId) {
-    return "";
+  public Train getTrain(String trainId) {
+    return new Train(new ArrayList<>());
   }
 
   @Override

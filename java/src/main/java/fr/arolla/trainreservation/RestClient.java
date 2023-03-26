@@ -17,8 +17,9 @@ public class RestClient implements ServiceClient {
   }
 
   @Override
-  public String getTrainData(String trainId) {
-    return restTemplate.getForObject("http://127.0.0.1:8081/data_for_train/" + trainId, String.class);
+  public Train getTrain(String trainId) {
+    var json = restTemplate.getForObject("http://127.0.0.1:8081/data_for_train/" + trainId, String.class);
+    return TrainDataParser.parseTrainData(json);
   }
 
   @Override
