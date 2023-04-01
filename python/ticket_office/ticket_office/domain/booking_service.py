@@ -1,5 +1,4 @@
-
-from ticket_office.domain.seat_finder import NotEnoughFreeSeats, SeatFinder
+from ticket_office.domain.seat_finder import SeatFinder
 
 
 class BookingService:
@@ -10,8 +9,5 @@ class BookingService:
         booking_reference = self._client.get_booking_reference()
         train = self._client.get_train(train_id)
         seat_finder = SeatFinder(train)
-        try:
-            seat_ids = seat_finder.find(seat_count)
-            return {"booking_reference": booking_reference, "seats": seat_ids}
-        except NotEnoughFreeSeats:
-            return {"error": "not enough free seats"}
+        seat_ids = seat_finder.find(seat_count)
+        return {"booking_reference": booking_reference, "seats": seat_ids}

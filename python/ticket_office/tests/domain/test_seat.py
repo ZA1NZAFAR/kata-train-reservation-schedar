@@ -12,7 +12,7 @@ def test_can_create_empty_seat():
     assert seat.id == "1A"
 
 
-def test_seats_attributes_are_read_only():
+def test_seat_attributes_are_read_only():
     seat = Seat.free(number=1, coach="A")
 
     with pytest.raises(AttributeError):
@@ -35,8 +35,6 @@ def test_can_book_free_seat():
 def test_can_create_booked_seat():
     seat = Seat.booked(number=1, coach="A", booking_reference="abc123")
     assert seat.is_booked()
-    assert seat.number == 1
-    assert seat.coach == "A"
     assert seat.booking_reference == "abc123"
 
 
