@@ -6,7 +6,6 @@ def test_booking_four_seats_from_empty_train(test_train):
     client = FakeClient("abc123", test_train)
 
     booking_service = BookingService(client)
-    response = booking_service.book("express_2000", 4)
+    seat_ids = booking_service.book("express_2000", 4)
 
-    assert response["seats"] == ["1A", "2A", "3A", "4A"]
-    assert response["booking_reference"] == "abc123"
+    assert seat_ids == ["1A", "2A", "3A", "4A"]
