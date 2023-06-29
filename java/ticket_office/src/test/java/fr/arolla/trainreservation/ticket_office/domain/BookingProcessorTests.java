@@ -10,12 +10,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TicketOfficeTests {
+public class BookingProcessorTests {
   private final String trainID = "express_2000";
   private Train train;
   private InMemoryRepository inMemoryRepository;
   private DummyBookingReferenceSource dummyBookingReferenceSource;
-  private TicketOffice ticketOffice;
+  private BookingProcessor bookingProcessor;
 
   @BeforeEach
   void setup() {
@@ -25,13 +25,13 @@ public class TicketOfficeTests {
     train = Helpers.makeEmptyTrain();
     inMemoryRepository.setTrain(train);
 
-    ticketOffice = new TicketOffice(dummyBookingReferenceSource, inMemoryRepository);
+    bookingProcessor = new BookingProcessor(dummyBookingReferenceSource, inMemoryRepository);
   }
 
   @Test
   public void bookingFourSeatsFromEmptyTrain() {
     var request = new BookingRequest(trainID, 4);
-    var booking = ticketOffice.processRequest(request);
+    var booking = bookingProcessor.processRequest(request);
 
     assertEquals(booking.seatIDs().stream().map(SeatID::toString).toList(), List.of("0A", "1A", "2A", "3A"));
   }

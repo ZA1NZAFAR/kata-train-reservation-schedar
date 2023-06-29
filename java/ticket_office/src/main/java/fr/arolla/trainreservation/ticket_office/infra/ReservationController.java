@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 public class ReservationController {
   private final TrainRepository trainRepository;
   private final BookingReferenceSource bookingReferenceSource;
-  private final TicketOffice ticketOffice;
+  private final BookingProcessor bookingProcessor;
 
   ReservationController(TrainRepository trainRepository, BookingReferenceSource bookingReferenceSource) {
     this.trainRepository = trainRepository;
     this.bookingReferenceSource = bookingReferenceSource;
-    this.ticketOffice = new TicketOffice(bookingReferenceSource, trainRepository);
+    this.bookingProcessor = new BookingProcessor(bookingReferenceSource, trainRepository);
   }
 
 
@@ -25,7 +25,7 @@ public class ReservationController {
       request.count()
     );
 
-    var booking = ticketOffice.processRequest(bookingRequest);
+    var booking = bookingProcessor.processRequest(bookingRequest);
 
     return new ReservationResponse(
       booking.reference(),

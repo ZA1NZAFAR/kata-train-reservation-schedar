@@ -1,10 +1,10 @@
 package fr.arolla.trainreservation.ticket_office.domain;
 
-public class TicketOffice {
+public class BookingProcessor {
   private final TrainRepository repository;
   private final BookingReferenceSource bookingReferenceSource;
 
-  public TicketOffice(BookingReferenceSource bookingReferenceSource, TrainRepository repository) {
+  public BookingProcessor(BookingReferenceSource bookingReferenceSource, TrainRepository repository) {
     this.bookingReferenceSource = bookingReferenceSource;
     this.repository = repository;
   }
