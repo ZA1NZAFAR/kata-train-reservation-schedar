@@ -53,10 +53,9 @@ class EndToEndTests {
     String requestJson = ow.writeValueAsString(request);
     String url = "http://127.0.0.1:8083/reserve";
 
-    var result = mockMvc.perform(post(url).contentType(APPLICATION_JSON_UTF8)
+    mockMvc.perform(post(url).contentType(APPLICATION_JSON_UTF8)
         .content(requestJson))
       .andExpect(status().isOk());
   }
-
 
 }
