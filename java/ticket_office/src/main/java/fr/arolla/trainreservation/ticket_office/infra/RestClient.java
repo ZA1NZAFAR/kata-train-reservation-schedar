@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RestClient implements TrainRepository, BookingReferenceSource {
+public class RestClient implements BookingReferenceSource, TrainRepository {
   private final RestTemplate restTemplate;
   private final String baseUrl = "http://127.0.0.1:8081";
 
