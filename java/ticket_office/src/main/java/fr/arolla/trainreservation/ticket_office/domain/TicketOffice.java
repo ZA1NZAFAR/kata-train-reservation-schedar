@@ -1,25 +1,27 @@
 package fr.arolla.trainreservation.ticket_office.domain;
 
 public class TicketOffice {
-  private final TrainRepository serviceClient;
+  private final TrainRepository repository;
+  private final BookingReferenceSource bookingReferenceSource;
 
-  public TicketOffice(TrainRepository serviceClient) {
-    this.serviceClient = serviceClient;
+  public TicketOffice(BookingReferenceSource bookingReferenceSource, TrainRepository repository) {
+    this.bookingReferenceSource = bookingReferenceSource;
+    this.repository = repository;
   }
 
   public Booking processRequest(BookingRequest request) {
+    var bookingReference = bookingReferenceSource.getNew();
+
     String trainID = request.trainID();
+    var train = repository.getTrain(trainID);
+
     int seatCount = request.seatCount();
-
-    var bookingReference = serviceClient.getNewBookingReference();
-
-    var train = serviceClient.getTrain(trainID);
-
     var seatFinder = new SeatFinder(train);
     var freeSeats = seatFinder.findSeats(seatCount);
 
     var booking = new Booking(bookingReference, trainID, freeSeats);
-    serviceClient.applyBooking(booking);
+    repository.applyBooking(booking);
+
     return booking;
   }
 }

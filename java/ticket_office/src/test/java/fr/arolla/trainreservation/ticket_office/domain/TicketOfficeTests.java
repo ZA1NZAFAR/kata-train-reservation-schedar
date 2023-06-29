@@ -1,5 +1,6 @@
 package fr.arolla.trainreservation.ticket_office.domain;
 
+import fr.arolla.trainreservation.ticket_office.DummyBookingReferenceSource;
 import fr.arolla.trainreservation.ticket_office.Helpers;
 import fr.arolla.trainreservation.ticket_office.InMemoryRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,18 +13,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TicketOfficeTests {
   private final String trainID = "express_2000";
   private Train train;
-  private InMemoryRepository fakeServiceClient;
+  private InMemoryRepository inMemoryRepository;
+  private DummyBookingReferenceSource dummyBookingReferenceSource;
   private TicketOffice ticketOffice;
-
 
   @BeforeEach
   void setup() {
-    fakeServiceClient = new InMemoryRepository();
+    inMemoryRepository = new InMemoryRepository();
+    dummyBookingReferenceSource = new DummyBookingReferenceSource();
 
     train = Helpers.makeEmptyTrain();
-    fakeServiceClient.setTrain(train);
+    inMemoryRepository.setTrain(train);
 
-    ticketOffice = new TicketOffice(fakeServiceClient);
+    ticketOffice = new TicketOffice(dummyBookingReferenceSource, inMemoryRepository);
   }
 
   @Test

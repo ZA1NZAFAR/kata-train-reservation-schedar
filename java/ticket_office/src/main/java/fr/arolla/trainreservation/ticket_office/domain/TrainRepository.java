@@ -2,12 +2,6 @@ package fr.arolla.trainreservation.ticket_office.domain;
 
 public interface TrainRepository {
   /**
-   * Get a suitable booking reference, different
-   * at each call
-   */
-  String getNewBookingReference();
-
-  /**
    * Return the train matching the ID.
    * The train contains all the seats and their matching
    * booking references if they have one.

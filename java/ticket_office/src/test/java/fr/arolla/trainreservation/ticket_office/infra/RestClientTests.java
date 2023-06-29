@@ -16,8 +16,8 @@ public class RestClientTests {
   @Test
   static void canGetSeveralUniqueBookingReferences() {
     RestClient restClient = new RestClient();
-    String first = restClient.getNewBookingReference();
-    String second = restClient.getNewBookingReference();
+    String first = restClient.getNew();
+    String second = restClient.getNew();
     assertNotEquals(first, second);
   }
 

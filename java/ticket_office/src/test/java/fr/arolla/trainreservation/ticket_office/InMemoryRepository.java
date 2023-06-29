@@ -5,7 +5,6 @@ import fr.arolla.trainreservation.ticket_office.domain.Train;
 import fr.arolla.trainreservation.ticket_office.domain.TrainRepository;
 
 public class InMemoryRepository implements TrainRepository {
-  private static int counter = 1;
   private Train train;
 
   public InMemoryRepository() {
@@ -32,11 +31,6 @@ public class InMemoryRepository implements TrainRepository {
     }
   }
 
-  @Override
-  public String getNewBookingReference() {
-    counter++;
-    return Integer.toString(counter);
-  }
 
   public void setTrain(Train train) {
     this.train = train;

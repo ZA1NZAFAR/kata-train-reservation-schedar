@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ReservationController {
   private final TrainRepository trainRepository;
+  private final BookingReferenceSource bookingReferenceSource;
   private final TicketOffice ticketOffice;
 
-  ReservationController(TrainRepository trainRepository) {
+  ReservationController(TrainRepository trainRepository, BookingReferenceSource bookingReferenceSource) {
     this.trainRepository = trainRepository;
-    this.ticketOffice = new TicketOffice(trainRepository);
+    this.bookingReferenceSource = bookingReferenceSource;
+    this.ticketOffice = new TicketOffice(bookingReferenceSource, trainRepository);
   }
 
 
