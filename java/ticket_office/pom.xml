@@ -9,10 +9,10 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>fr.arrolla</groupId>
-  <artifactId>train-reservation</artifactId>
+  <artifactId>ticket-office</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>train-reservation</name>
-  <description>Train Reservation Kata</description>
+  <name>ticket-office</name>
+  <description>service to make reservations</description>
   <properties>
     <java.version>17</java.version>
   </properties>
