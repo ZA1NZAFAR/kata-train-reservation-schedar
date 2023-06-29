@@ -27,7 +27,7 @@ public class FakeServiceClient implements ServiceClient {
   @Override
   public Booking makeReservation(Reservation reservation) {
     String bookingReference = reservation.bookingReference();
-    var seatIDs = reservation.seats();
+    var seatIDs = reservation.seatIDs();
     for (var seatID : seatIDs) {
       train.book(seatID, bookingReference);
     }

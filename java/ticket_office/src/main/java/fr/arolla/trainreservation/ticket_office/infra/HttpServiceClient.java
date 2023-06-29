@@ -34,15 +34,15 @@ public class HttpServiceClient implements ServiceClient {
   public Booking makeReservation(Reservation reservation) {
     String trainID = reservation.trainID();
     String bookingReference = reservation.bookingReference();
-    List<String> seats = reservation.seats().stream().map(s -> s.toString()).toList();
+    List<String> seatIDs = reservation.seatIDs().stream().map(s -> s.toString()).toList();
     Map<String, Object> payload = new HashMap<>();
     payload.put("train_id", reservation.trainID());
-    payload.put("seats", seats);
+    payload.put("seats", seatIDs);
     payload.put("booking_reference", bookingReference);
 
     restTemplate.postForObject(baseUrl + "/reserve", payload, String.class);
 
-    return new Booking(trainID, bookingReference, seats);
+    return new Booking(trainID, bookingReference, seatIDs);
   }
 
   @Override
