@@ -1,7 +1,7 @@
 package fr.arolla.trainreservation.ticket_office.infra;
 
-import fr.arolla.trainreservation.ticket_office.FakeServiceClient;
-import fr.arolla.trainreservation.ticket_office.domain.ServiceClient;
+import fr.arolla.trainreservation.ticket_office.InMemoryRepository;
+import fr.arolla.trainreservation.ticket_office.domain.TrainRepository;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Bean;
 public class TestConfig {
 
   @Bean
-  ServiceClient serviceClient() {
-    return new FakeServiceClient();
+  TrainRepository serviceClient() {
+    return new InMemoryRepository();
   }
 
 

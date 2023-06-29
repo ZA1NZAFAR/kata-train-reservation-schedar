@@ -1,9 +1,9 @@
 package fr.arolla.trainreservation.ticket_office.domain;
 
 public class TicketOffice {
-  private final ServiceClient serviceClient;
+  private final TrainRepository serviceClient;
 
-  public TicketOffice(ServiceClient serviceClient) {
+  public TicketOffice(TrainRepository serviceClient) {
     this.serviceClient = serviceClient;
   }
 

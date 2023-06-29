@@ -1,19 +1,19 @@
 package fr.arolla.trainreservation.ticket_office.infra;
 
 import fr.arolla.trainreservation.ticket_office.domain.Booking;
-import fr.arolla.trainreservation.ticket_office.domain.ServiceClient;
 import fr.arolla.trainreservation.ticket_office.domain.Train;
+import fr.arolla.trainreservation.ticket_office.domain.TrainRepository;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HttpServiceClient implements ServiceClient {
+public class RestClient implements TrainRepository {
   private final RestTemplate restTemplate;
   private final String baseUrl = "http://127.0.0.1:8081";
 
-  public HttpServiceClient() {
+  public RestClient() {
     restTemplate = new RestTemplate();
   }
 

@@ -1,14 +1,14 @@
 package fr.arolla.trainreservation.ticket_office;
 
 import fr.arolla.trainreservation.ticket_office.domain.Booking;
-import fr.arolla.trainreservation.ticket_office.domain.ServiceClient;
 import fr.arolla.trainreservation.ticket_office.domain.Train;
+import fr.arolla.trainreservation.ticket_office.domain.TrainRepository;
 
-public class FakeServiceClient implements ServiceClient {
+public class InMemoryRepository implements TrainRepository {
   private static int counter = 1;
   private Train train;
 
-  public FakeServiceClient() {
+  public InMemoryRepository() {
   }
 
   @Override

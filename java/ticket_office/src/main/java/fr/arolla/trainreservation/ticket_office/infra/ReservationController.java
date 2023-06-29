@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ReservationController {
-  private final ServiceClient serviceClient;
+  private final TrainRepository trainRepository;
   private final TicketOffice ticketOffice;
 
-  ReservationController(ServiceClient serviceClient) {
-    this.serviceClient = serviceClient;
-    this.ticketOffice = new TicketOffice(serviceClient);
+  ReservationController(TrainRepository trainRepository) {
+    this.trainRepository = trainRepository;
+    this.ticketOffice = new TicketOffice(trainRepository);
   }
 
 
