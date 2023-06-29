@@ -1,9 +1,8 @@
-package fr.arolla.trainreservation.ticket_office;
+package fr.arolla.trainreservation.ticket_office.infra;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import fr.arolla.trainreservation.ticket_office.controllers.BookingRequest;
-import fr.arolla.trainreservation.ticket_office.controllers.BookingResponse;
+import fr.arolla.trainreservation.ticket_office.domain.Booking;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -32,7 +31,7 @@ class EndToEndTests {
   private MockMvc mockMvc;
 
   @Test
-  void reserve_four_seats_from_empty_train() throws Exception {
+  void reserveFourSeatsFromEmptyTrain() throws Exception {
     final String trainId = "express_2000";
     var restTemplate = new RestTemplate();
     restTemplate.postForObject("http://127.0.0.1:8081" + "/reset/" + trainId, null, String.class);
@@ -51,14 +50,14 @@ class EndToEndTests {
 
     var json = result.getContentAsString();
     var objectMapper = new ObjectMapper();
-    var bookingResponse = objectMapper.readValue(json, BookingResponse.class);
+    var booking = objectMapper.readValue(json, Booking.class);
 
     var expected = List.of("1A", "2A", "3A", "4A");
-    assertEquals(expected, bookingResponse.seats());
+    assertEquals(expected, booking.seats());
   }
 
   @Test
-  void reserve_four_additional_seats() throws Exception {
+  void reserveFourAdditionalSeats() throws Exception {
     // Reset
     final String trainId = "express_2000";
     var restTemplate = new RestTemplate();
@@ -85,11 +84,10 @@ class EndToEndTests {
 
     var json = result.getContentAsString();
     var objectMapper = new ObjectMapper();
-    var bookingResponse = objectMapper.readValue(json, BookingResponse.class);
+    var booking = objectMapper.readValue(json, Booking.class);
 
-    var expected = List.of("5A", "6A", "7A", "8A");
-    assertEquals(expected, bookingResponse.seats());
+    var expected = List.of("1B", "2B", "3B", "4B");
+    assertEquals(expected, booking.seats());
   }
-
-
+  
 }
