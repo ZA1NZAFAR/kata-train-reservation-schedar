@@ -7,14 +7,19 @@ public class TicketOffice {
     this.serviceClient = serviceClient;
   }
 
-  public Booking reserve(String trainId, int seatCount) {
+  public Booking processRequest(BookingRequest request) {
+    String trainID = request.trainID();
+    int seatCount = request.seatCount();
+
     var bookingReference = serviceClient.getNewBookingReference();
-    var train = serviceClient.getTrain(trainId);
+
+    var train = serviceClient.getTrain(trainID);
 
     var seatFinder = new SeatFinder(train);
     var freeSeats = seatFinder.findSeats(seatCount);
 
-    var reservation = new Reservation(trainId, bookingReference, freeSeats);
-    return serviceClient.makeReservation(reservation);
+    var booking = new Booking(bookingReference, trainID, freeSeats);
+    serviceClient.applyBooking(booking);
+    return booking;
   }
 }

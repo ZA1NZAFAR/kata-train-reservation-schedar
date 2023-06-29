@@ -1,7 +1,6 @@
 package fr.arolla.trainreservation.ticket_office;
 
 import fr.arolla.trainreservation.ticket_office.domain.Booking;
-import fr.arolla.trainreservation.ticket_office.domain.Reservation;
 import fr.arolla.trainreservation.ticket_office.domain.ServiceClient;
 import fr.arolla.trainreservation.ticket_office.domain.Train;
 
@@ -13,26 +12,24 @@ public class FakeServiceClient implements ServiceClient {
   }
 
   @Override
-  public void reset(String trainId) {
+  public void resetTrain(String trainID) {
     if (train != null) {
       train.reset();
     }
   }
 
   @Override
-  public Train getTrain(String trainId) {
+  public Train getTrain(String trainID) {
     return train;
   }
 
   @Override
-  public Booking makeReservation(Reservation reservation) {
-    String bookingReference = reservation.bookingReference();
-    var seatIDs = reservation.seatIDs();
+  public void applyBooking(Booking booking) {
+    String bookingReference = booking.reference();
+    var seatIDs = booking.seatIDs();
     for (var seatID : seatIDs) {
       train.book(seatID, bookingReference);
     }
-    var seats = seatIDs.stream().map(s -> s.toString());
-    return new Booking(reservation.trainID(), bookingReference, seats.toList());
   }
 
   @Override

@@ -1,7 +1,8 @@
 package fr.arolla.trainreservation.ticket_office.infra;
 
-import fr.arolla.trainreservation.ticket_office.domain.Reservation;
+import fr.arolla.trainreservation.ticket_office.domain.Booking;
 import fr.arolla.trainreservation.ticket_office.domain.SeatID;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class HttpServiceClientTests {
+  private final String trainID = "express_2000";
+
   @Test
   static void canGetSeveralUniqueBookingReferences() {
     HttpServiceClient client = new HttpServiceClient();
@@ -18,24 +21,25 @@ public class HttpServiceClientTests {
     assertNotEquals(first, second);
   }
 
-  @Test
-  void canResetExistingTrain() {
+  @BeforeEach
+  void resetTrain() {
     var client = new HttpServiceClient();
-    client.reset("express_2000");
+    client.resetTrain(trainID);
   }
 
   @Test
   void canGetTrain() {
     var client = new HttpServiceClient();
-    var train = client.getTrain("express_2000");
+    var train = client.getTrain(trainID);
     assertEquals(16, train.seats().count());
   }
 
   @Test
-  void canMakeReservation() {
+  void canApplyBooking() {
     var client = new HttpServiceClient();
+    client.resetTrain(trainID);
     var seats = List.of(new String[]{"1A", "2A"}).stream().map(s -> SeatID.parse(s));
-    var reservation = new Reservation("express_2000", "abc123def", seats.toList());
-    client.makeReservation(reservation);
+    var booking = new Booking("abc123def", "express_2000", seats.toList());
+    client.applyBooking(booking);
   }
 }

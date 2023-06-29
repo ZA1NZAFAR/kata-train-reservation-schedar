@@ -28,9 +28,10 @@ public class TicketOfficeTests {
 
   @Test
   public void bookingFourSeatsFromEmptyTrain() {
-    var booking = ticketOffice.reserve(trainID, 4);
+    var request = new BookingRequest(trainID, 4);
+    var booking = ticketOffice.processRequest(request);
 
-    assertEquals(booking.seats(), List.of("0A", "1A", "2A", "3A"));
+    assertEquals(booking.seatIDs().stream().map(SeatID::toString).toList(), List.of("0A", "1A", "2A", "3A"));
   }
 
 }

@@ -29,20 +29,20 @@ public class TrainController {
     }
   }
 
-  @PostMapping(path = "/reset/{trainId}")
-  public String reset(@PathVariable("trainId") String trainId) {
+  @PostMapping(path = "/reset/{trainID}")
+  public String reset(@PathVariable("trainID") String trainID) {
     resetTrains();
     return "";
   }
 
   @PostMapping("reserve")
   public String reserve(@RequestBody ReservationRequest request) {
-    var trainId = request.train_id();
+    var trainID = request.train_id();
     var seats = request.seats();
     var bookingReference = request.booking_reference();
-    JsonNode train = trains.get(trainId);
+    JsonNode train = trains.get(trainID);
     if (train == null) {
-      throw new NoSuchTrain(trainId);
+      throw new NoSuchTrain(trainID);
     }
     var jsonSeats = train.get("seats");
     for (var seatId : seats) {
@@ -59,11 +59,11 @@ public class TrainController {
     return train.toPrettyString();
   }
 
-  @GetMapping("data_for_train/{trainId}")
-  public String dataForTrain(@PathVariable("trainId") String trainId) {
-    JsonNode train = trains.get(trainId);
+  @GetMapping("data_for_train/{trainID}")
+  public String dataForTrain(@PathVariable("trainID") String trainID) {
+    JsonNode train = trains.get(trainID);
     if (train == null) {
-      throw new NoSuchTrain(trainId);
+      throw new NoSuchTrain(trainID);
     }
     return train.toPrettyString();
   }

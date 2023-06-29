@@ -94,4 +94,5 @@ def test_ticket_office():
 
     assert response.status_code == 200, response.text
     response = response.json()
+    print(response)
     assert response["seats"] == ["1A", "2A"]

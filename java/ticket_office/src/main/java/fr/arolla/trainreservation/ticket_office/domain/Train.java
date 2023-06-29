@@ -44,9 +44,9 @@ public class Train {
     seat.book(bookingReference);
   }
 
-  public void applyReservation(Reservation reservation) {
-    String bookingReference = reservation.bookingReference();
-    reservation.seatIDs().forEach(s -> book(s, bookingReference));
+  public void applyBooking(Booking booking) {
+    String bookingReference = booking.reference();
+    booking.seatIDs().forEach(s -> book(s, bookingReference));
   }
 
   public double occupancyForCoach(CoachID coach) {

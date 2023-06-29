@@ -2,7 +2,6 @@ package fr.arolla.trainreservation.ticket_office.infra;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import fr.arolla.trainreservation.ticket_office.domain.Booking;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -32,11 +31,11 @@ class EndToEndTests {
 
   @Test
   void reserveFourSeatsFromEmptyTrain() throws Exception {
-    final String trainId = "express_2000";
+    final String trainID = "express_2000";
     var restTemplate = new RestTemplate();
-    restTemplate.postForObject("http://127.0.0.1:8081" + "/reset/" + trainId, null, String.class);
+    restTemplate.postForObject("http://127.0.0.1:8081" + "/reset/" + trainID, null, String.class);
 
-    var request = new BookingRequest(trainId, 4);
+    var request = new ReservationRequest(trainID, 4);
     var mapper = new ObjectMapper();
     ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
     String requestJson = ow.writeValueAsString(request);
@@ -50,21 +49,21 @@ class EndToEndTests {
 
     var json = result.getContentAsString();
     var objectMapper = new ObjectMapper();
-    var booking = objectMapper.readValue(json, Booking.class);
+    var reservationResponse = objectMapper.readValue(json, ReservationResponse.class);
 
     var expected = List.of("1A", "2A", "3A", "4A");
-    assertEquals(expected, booking.seats());
+    assertEquals(expected, reservationResponse.seats());
   }
 
   @Test
   void reserveFourAdditionalSeats() throws Exception {
     // Reset
-    final String trainId = "express_2000";
+    final String trainID = "express_2000";
     var restTemplate = new RestTemplate();
-    restTemplate.postForObject("http://127.0.0.1:8081" + "/reset/" + trainId, null, String.class);
+    restTemplate.postForObject("http://127.0.0.1:8081" + "/reset/" + trainID, null, String.class);
 
     // Book 4 seats
-    var request = new BookingRequest(trainId, 4);
+    var request = new ReservationRequest(trainID, 4);
     var mapper = new ObjectMapper();
     ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
     String requestJson = ow.writeValueAsString(request);
@@ -84,10 +83,10 @@ class EndToEndTests {
 
     var json = result.getContentAsString();
     var objectMapper = new ObjectMapper();
-    var booking = objectMapper.readValue(json, Booking.class);
+    var response = objectMapper.readValue(json, ReservationResponse.class);
 
     var expected = List.of("1B", "2B", "3B", "4B");
-    assertEquals(expected, booking.seats());
+    assertEquals(expected, response.seats());
   }
-  
+
 }

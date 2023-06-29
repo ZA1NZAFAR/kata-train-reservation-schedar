@@ -6,14 +6,14 @@ public interface ServiceClient {
    * The train contains all the seats and their matching
    * booking references if they have one.
    */
-  Train getTrain(String trainId);
+  Train getTrain(String trainID);
 
   /**
-   *  Try and apply the given reservation in the train
-   *  Return the updated train if there was no booking
-   *  conflicts, and throws AlreadyBookedException otherwise
+   * Try and apply the given booking in the train
+   * Return the updated train if there was no booking
+   * conflicts, and throws AlreadyBookedException otherwise
    */
-  Booking makeReservation(Reservation reservation);
+  void applyBooking(Booking booking);
 
   /**
    * Get a suitable booking reference, different
@@ -25,6 +25,6 @@ public interface ServiceClient {
    * Reset all booking references for the given train
    * Only use this for testing!
    */
-  void reset(String trainId);
+  void resetTrain(String trainID);
 
 }

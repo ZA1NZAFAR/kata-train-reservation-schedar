@@ -78,7 +78,7 @@ class SeatFinderTests {
     assertEquals(expectedCount, seats.size());
 
     // Use Train.applyReservation so that we're sure a booking can happen
-    train.applyReservation(new Reservation(trainID, "new", seats));
+    train.applyBooking(new Booking("newReference", trainID, seats));
 
     // Check that all seats are in the same coach
     var coachIDs = seats.stream().map(s -> s.getCoach()).collect(Collectors.toSet());
