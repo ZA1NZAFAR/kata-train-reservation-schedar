@@ -32,13 +32,11 @@ public class RestClient implements TrainRepository, BookingReferenceSource {
 
   @Override
   public void applyBooking(Booking booking) {
-    String trainID = booking.trainID();
-    String bookingReference = booking.reference();
     List<String> seatIDs = booking.seatIDs().stream().map(s -> s.toString()).toList();
     Map<String, Object> payload = new HashMap<>();
     payload.put("train_id", booking.trainID());
     payload.put("seats", seatIDs);
-    payload.put("booking_reference", bookingReference);
+    payload.put("booking_reference", booking.reference());
 
     // Will throw if there are booking conflicts which should not happen if SeatFinder works
     // correctly
@@ -47,7 +45,7 @@ public class RestClient implements TrainRepository, BookingReferenceSource {
   }
 
   @Override
-  public String getNew() {
+  public String getNewBookingReference() {
     return restTemplate.getForObject("http://127.0.0.1:8082/booking_reference", String.class);
   }
 }

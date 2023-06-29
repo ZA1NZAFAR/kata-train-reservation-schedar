@@ -6,7 +6,7 @@ public class DummyBookingReferenceSource implements BookingReferenceSource {
   private int counter = 1;
 
   @Override
-  public String getNew() {
+  public String getNewBookingReference() {
     counter++;
     return Integer.toString(counter);
   }

@@ -5,5 +5,5 @@ public interface BookingReferenceSource {
    * Get a suitable booking reference, different
    * at each call
    */
-  String getNew();
+  String getNewBookingReference();
 }

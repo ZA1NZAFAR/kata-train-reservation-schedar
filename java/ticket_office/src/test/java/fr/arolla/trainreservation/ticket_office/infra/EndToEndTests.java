@@ -54,39 +54,5 @@ class EndToEndTests {
     var expected = List.of("1A", "2A", "3A", "4A");
     assertEquals(expected, reservationResponse.seats());
   }
-
-  @Test
-  void reserveFourAdditionalSeats() throws Exception {
-    // Reset
-    final String trainID = "express_2000";
-    var restTemplate = new RestTemplate();
-    restTemplate.postForObject("http://127.0.0.1:8081" + "/reset/" + trainID, null, String.class);
-
-    // Book 4 seats
-    var request = new ReservationRequest(trainID, 4);
-    var mapper = new ObjectMapper();
-    ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-    String requestJson = ow.writeValueAsString(request);
-    String url = "http://127.0.0.1:8083/reserve";
-
-    mockMvc.perform(post(url).contentType(APPLICATION_JSON_UTF8)
-        .content(requestJson))
-      .andExpect(status().isOk());
-
-    // Book 4 additional seats
-    var result = mockMvc.perform(post(url).contentType(APPLICATION_JSON_UTF8)
-        .content(requestJson))
-      .andExpect(status().isOk())
-      .andReturn()
-      .getResponse();
-
-
-    var json = result.getContentAsString();
-    var objectMapper = new ObjectMapper();
-    var response = objectMapper.readValue(json, ReservationResponse.class);
-
-    var expected = List.of("1B", "2B", "3B", "4B");
-    assertEquals(expected, response.seats());
-  }
-
+  
 }

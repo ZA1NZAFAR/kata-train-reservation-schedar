@@ -10,7 +10,7 @@ public class BookingProcessor {
   }
 
   public Booking processRequest(BookingRequest request) {
-    var bookingReference = bookingReferenceSource.getNew();
+    var bookingReference = bookingReferenceSource.getNewBookingReference();
 
     String trainID = request.trainID();
     var train = repository.getTrain(trainID);

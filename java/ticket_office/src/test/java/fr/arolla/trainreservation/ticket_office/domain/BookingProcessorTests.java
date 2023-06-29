@@ -36,4 +36,15 @@ public class BookingProcessorTests {
     assertEquals(booking.seatIDs().stream().map(SeatID::toString).toList(), List.of("0A", "1A", "2A", "3A"));
   }
 
+  @Test
+  public void bookingFourAdditionalSeats() {
+    var request = new BookingRequest(trainID, 4);
+    // First booking:
+    bookingProcessor.processRequest(request);
+
+    // Second booking:
+    var booking = bookingProcessor.processRequest(request);
+    assertEquals(booking.seatIDs().stream().map(SeatID::toString).toList(), List.of("0B", "1B", "2B", "3B"));
+  }
+
 }

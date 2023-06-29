@@ -12,8 +12,8 @@ public class Helpers {
   public static Train makeEmptyTrain() {
     var seats = new ArrayList<fr.arolla.trainreservation.ticket_office.domain.Seat>();
     var letters = new String[]{"A", "B", "C", "D", "E"};
-    var coachIds = Arrays.stream(letters).map(s -> new CoachID(s));
-    coachIds.forEach(coachID -> {
+    var coachIDs = Arrays.stream(letters).map(s -> new CoachID(s));
+    coachIDs.forEach(coachID -> {
       var numbers = IntStream.range(0, 10);
       var seatsNumbers = numbers.mapToObj(i -> new SeatNumber(Integer.toString(i)));
       seatsNumbers.forEach(seatNumber -> {

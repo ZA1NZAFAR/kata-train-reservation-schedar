@@ -10,9 +10,9 @@ public class SeatTests {
 
   @BeforeEach
   void setSeat() {
-    var coachId = new CoachID("A");
+    var coachID = new CoachID("A");
     var seatNumber = new SeatNumber("1");
-    seat = new Seat(seatNumber, coachId);
+    seat = new Seat(seatNumber, coachID);
   }
 
   @Test

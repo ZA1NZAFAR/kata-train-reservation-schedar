@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 public class TestConfig {
 
   @Bean
-  TrainRepository serviceClient() {
+  TrainRepository trainRepository() {
     return new InMemoryRepository();
   }
 

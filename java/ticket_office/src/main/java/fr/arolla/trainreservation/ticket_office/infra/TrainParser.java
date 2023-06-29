@@ -20,7 +20,7 @@ public class TrainParser {
       for (JsonNode node : seatsNode) {
         String bookingReference = null;
         var bookingReferenceNode = node.get("booking_reference");
-        if (bookingReferenceNode != null && !bookingReferenceNode.isNull() && !bookingReferenceNode.asText().equals("")) {
+        if (bookingReferenceNode != null && !bookingReferenceNode.asText().equals("")) {
           bookingReference = bookingReferenceNode.asText();
         }
         String coach = node.get("coach").asText();

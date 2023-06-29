@@ -2,23 +2,7 @@ package fr.arolla.trainreservation.ticket_office.domain;
 
 import org.jetbrains.annotations.NotNull;
 
-public class SeatID implements Comparable<SeatID> {
-
-  private final SeatNumber number;
-  private final CoachID coach;
-
-  public SeatID(SeatNumber number, CoachID coach) {
-    this.number = number;
-    this.coach = coach;
-  }
-
-  public SeatNumber getNumber() {
-    return number;
-  }
-
-  public CoachID getCoach() {
-    return coach;
-  }
+public record SeatID(SeatNumber number, CoachID coach) implements Comparable<SeatID> {
 
   public static SeatID parse(String s) {
     var numberString = s.substring(0, 1);

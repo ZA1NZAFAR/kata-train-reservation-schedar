@@ -20,7 +20,7 @@ class SeatFinderTests {
   }
 
   @Test
-  void findSeatsWhenTrainIsEmpty() {
+  void bookingFourSeatsFromEmptyTrain() {
     setupBookedSeats(List.of());
 
     var found = seatFinder.findSeats(4);
@@ -29,12 +29,12 @@ class SeatFinderTests {
   }
 
   @Test
-  void findTwoMoreSeatsWhenTwoSeatsAreAlreadyBooked() {
-    setupBookedSeats(List.of("0A", "1A"));
+  void bookingFourAdditionalSeats() {
+    setupBookedSeats(List.of("0A", "1A", "2A", "3A"));
 
-    var found = seatFinder.findSeats(2);
+    var found = seatFinder.findSeats(4);
 
-    checkSeats(found, 2);
+    checkSeats(found, 4);
   }
 
   @Test
@@ -81,7 +81,7 @@ class SeatFinderTests {
     train.applyBooking(new Booking("newReference", trainID, seats));
 
     // Check that all seats are in the same coach
-    var coachIDs = seats.stream().map(s -> s.getCoach()).collect(Collectors.toSet());
+    var coachIDs = seats.stream().map(s -> s.coach()).collect(Collectors.toSet());
     assertEquals(1, coachIDs.size(), String.format("Expected all seats to be in the same coach, %s", seats));
 
     // Check occupancy of each coach
