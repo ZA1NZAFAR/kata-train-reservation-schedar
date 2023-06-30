@@ -1,18 +1,19 @@
 package fr.arolla.trainreservation.ticket_office.domain;
 
 public class Seat implements Comparable<Seat> {
-  private final SeatNumber number;
-  private final CoachID coach;
-  private String bookingReference;
 
-  public Seat(SeatNumber number, CoachID coach) {
-    this(number, coach, null);
+  private final SeatID id;
+  private String bookingReference;
+  private Seat(SeatID id, String bookingReference) {
+    this.id = id;
+    this.bookingReference = bookingReference;
+  }
+  public static Seat free(SeatID id) {
+    return new Seat(id, null);
   }
 
-  public Seat(SeatNumber number, CoachID coach, String bookingReference) {
-    this.number = number;
-    this.coach = coach;
-    this.bookingReference = bookingReference;
+  public static Seat booked(SeatID id, String bookingReference) {
+    return new Seat(id, bookingReference);
   }
 
   public void book(String bookingReference) {
@@ -25,7 +26,7 @@ public class Seat implements Comparable<Seat> {
     }
 
     String message = String.format("Seat '%s' already booked with reference '%s', but trying to book with '%s",
-      this.number,
+      this.id,
       this.bookingReference,
       bookingReference
     );
@@ -46,15 +47,15 @@ public class Seat implements Comparable<Seat> {
   }
 
   public SeatID id() {
-    return new SeatID(number, coach);
+    return this.id;
   }
 
   public SeatNumber number() {
-    return number;
+    return id.number();
   }
 
   public CoachID coach() {
-    return coach;
+    return id.coach();
   }
 
   public String bookingReference() {

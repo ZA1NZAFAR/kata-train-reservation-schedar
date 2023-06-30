@@ -3,10 +3,7 @@ package fr.arolla.trainreservation.ticket_office.infra;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.arolla.trainreservation.ticket_office.domain.CoachID;
-import fr.arolla.trainreservation.ticket_office.domain.Seat;
-import fr.arolla.trainreservation.ticket_office.domain.SeatNumber;
-import fr.arolla.trainreservation.ticket_office.domain.Train;
+import fr.arolla.trainreservation.ticket_office.domain.*;
 
 import java.util.ArrayList;
 
@@ -18,15 +15,19 @@ public class TrainParser {
       var tree = objectMapper.readTree(json);
       var seatsNode = tree.get("seats");
       for (JsonNode node : seatsNode) {
+        String coach = node.get("coach").asText();
+        String seatNumber = node.get("seat_number").asText();
+        SeatID seatID = new SeatID(new SeatNumber(seatNumber), new CoachID(coach));
         String bookingReference = null;
         var bookingReferenceNode = node.get("booking_reference");
         if (bookingReferenceNode != null && !bookingReferenceNode.asText().equals("")) {
           bookingReference = bookingReferenceNode.asText();
         }
-        String coach = node.get("coach").asText();
-        String seat_number = node.get("seat_number").asText();
-        Seat seat = new Seat(new SeatNumber(seat_number), new CoachID(coach), bookingReference);
-        seats.add(seat);
+        if(bookingReference == null) {
+          seats.add(Seat.free(seatID));
+        } else {
+          seats.add(Seat.booked(seatID, bookingReference));
+        }
       }
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);

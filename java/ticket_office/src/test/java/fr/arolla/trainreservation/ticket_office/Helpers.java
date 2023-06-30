@@ -12,12 +12,13 @@ public class Helpers {
   public static Train makeEmptyTrain() {
     var seats = new ArrayList<fr.arolla.trainreservation.ticket_office.domain.Seat>();
     var letters = new String[]{"A", "B", "C", "D", "E"};
-    var coachIDs = Arrays.stream(letters).map(s -> new CoachID(s));
+    var coachIDs = Arrays.stream(letters);
     coachIDs.forEach(coachID -> {
       var numbers = IntStream.range(0, 10);
-      var seatsNumbers = numbers.mapToObj(i -> new SeatNumber(Integer.toString(i)));
+      var seatsNumbers = numbers.mapToObj(i -> Integer.toString(i));
       seatsNumbers.forEach(seatNumber -> {
-        var seat = new Seat(seatNumber, coachID, null);
+        var seatID = new SeatID(new SeatNumber(seatNumber), new CoachID(coachID));
+        var seat = Seat.free(seatID);
         seats.add(seat);
       });
     });

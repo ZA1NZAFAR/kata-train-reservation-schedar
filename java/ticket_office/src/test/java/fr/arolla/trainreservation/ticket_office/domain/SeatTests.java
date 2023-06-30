@@ -12,7 +12,8 @@ public class SeatTests {
   void setSeat() {
     var coachID = new CoachID("A");
     var seatNumber = new SeatNumber("1");
-    seat = new Seat(seatNumber, coachID);
+    var seatID = new SeatID(seatNumber, coachID);
+    seat = Seat.free(seatID);
   }
 
   @Test
