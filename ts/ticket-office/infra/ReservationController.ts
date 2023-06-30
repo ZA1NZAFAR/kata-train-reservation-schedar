@@ -1,5 +1,6 @@
 import Booking from "../domain/Booking"
 import BookingReferenceSource from "../domain/BookingReferenceSource"
+import SeatFinder from "../domain/SeatFinder"
 import TrainRepository from "../domain/TrainRepository"
 
 type ReservationRequest = {
@@ -28,18 +29,16 @@ export default class ReservationController {
     const bookingReference = await this.bookingReferenceSource.getNewBookingReference()
 
     const train = await this.trainRepository.getTrain(trainID)
-    const seatsInTrain = train.getSeats()
-    const inFirstCoach = seatsInTrain.filter(s => s.coach === "A" && s.booking_reference == "")
-
-    const toReserve = inFirstCoach.slice(0, seatCount)
-    const seatIds = toReserve.map(s => `${s.number}${s.coach}`)
+    const seatFinder = new SeatFinder(train)
+    const seats = seatFinder.findSeats(seatCount)
+    const seatIds = seats.map(s => s.id)
     const booking = new Booking(bookingReference, seatIds, trainID)
 
     this.trainRepository.applyBooking(booking)
 
     const response = {
       reference: bookingReference,
-      seats: toReserve.map(s => s.id)
+      seats: seats.map(s => s.id.toString())
     }
     return Promise.resolve(response)
   }

@@ -1,6 +1,6 @@
 import Booking from "../domain/Booking"
 import BookingReferenceSource from "../domain/BookingReferenceSource"
-import Seat from "../domain/Seat"
+import Seat, { CoachID, SeatID, SeatNumber } from "../domain/Seat"
 import Train from "../domain/Train"
 import TrainRepository from "../domain/TrainRepository"
 
@@ -51,7 +51,10 @@ const parseTrain = (json: JsonTrain): Train => {
   const jsonSeats = Object.values(json.seats)
   jsonSeats.forEach(jsonSeat => {
     const { coach, seat_number, booking_reference } = jsonSeat
-    const seat = new Seat(seat_number, coach, booking_reference)
+    const coachID = new CoachID(coach)
+    const seatNumber = new SeatNumber(seat_number)
+    const seatID = new SeatID(seatNumber, coachID)
+    const seat = new Seat(seatID, booking_reference)
     seats.push(seat)
   })
   return new Train(seats)

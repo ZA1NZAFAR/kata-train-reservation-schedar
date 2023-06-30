@@ -18,7 +18,7 @@ export default class Train {
   toString(): string {
     let res = ""
     for (const seat of this.seats) {
-      res += seat.coach + seat.number + seat.booking_reference + "\n"
+      res += seat.id + seat.booking_reference + "\n"
     }
     return res
   }
