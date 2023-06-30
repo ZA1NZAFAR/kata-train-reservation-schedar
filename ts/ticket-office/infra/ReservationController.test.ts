@@ -21,7 +21,7 @@ class InMemoryRepository implements TrainRepository {
   }
 
   applyBooking(booking: Booking): Promise<void> {
-    this.train.appylBooking(booking)
+    this.train.applyBooking(booking)
     return Promise.resolve()
   }
 }
