@@ -10,7 +10,7 @@ export default class SeatFinder {
 
   findSeats(count: number): Seat[] {
     const seats = this.train.getSeats()
-    const availableSeats = seats.filter(s => s.coach === "A" && s.booking_reference == "")
+    const availableSeats = seats.filter(s => s.coach === "A" && s.isFree())
     return availableSeats.slice(0, count)
   }
 }

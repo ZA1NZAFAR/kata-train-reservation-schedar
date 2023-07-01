@@ -41,11 +41,11 @@ export class SeatId {
 
 export default class Seat {
   id: SeatId
-  booking_reference: string
+  private _bookingReference: string
 
   private constructor(id: SeatId, bookingReference: string) {
     this.id = id
-    this.booking_reference = bookingReference
+    this._bookingReference = bookingReference
   }
 
   static free(id: SeatId): Seat {
@@ -63,4 +63,17 @@ export default class Seat {
   get number(): string {
     return this.id.number.value
   }
+
+  book(reference: string) {
+    this._bookingReference = reference
+  }
+
+  isFree(): boolean {
+    return this._bookingReference == ""
+  }
+
+  toString(): string {
+    return this.id + this._bookingReference
+  }
+
 }

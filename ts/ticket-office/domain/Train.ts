@@ -17,7 +17,7 @@ export default class Train {
   }
 
   applyBooking(booking: Booking) {
-    const { seatIds, bookingReference } = booking;
+    const { seatIds, bookingReference } = booking
     for (const id of seatIds) {
       this.book(id, bookingReference)
     }
@@ -26,7 +26,7 @@ export default class Train {
   book(id: SeatId, reference: string) {
     const seat = this.seats.get(id)
     if (seat) {
-      seat.booking_reference = reference
+      seat.book(reference)
     }
   }
 
@@ -34,8 +34,8 @@ export default class Train {
   toString(): string {
     let res = ""
     this.seats.forEach(seat => {
-      res += seat.id + seat.booking_reference + "\n"
-    });
+      res += seat.toString() + "\n"
+    })
     return res
   }
 }
