@@ -1,5 +1,5 @@
-import Seat, { CoachID, SeatID, SeatNumber } from "./domain/Seat"
-import Train from "./domain/Train"
+import Seat, { CoachID, SeatID, SeatNumber } from "../domain/Seat"
+import Train from "../domain/Train"
 
 export const makeEmptyTrain = (): Train => {
   const seats = []

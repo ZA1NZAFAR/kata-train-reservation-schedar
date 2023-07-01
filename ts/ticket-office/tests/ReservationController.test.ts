@@ -1,11 +1,11 @@
 import { expect, test } from '@jest/globals'
-import ReservationController from './ReservationController'
+import ReservationController from '../infra/ReservationController'
 import TrainRepository from '../domain/TrainRepository'
 import Booking from '../domain/Booking'
 import Train from '../domain/Train'
 import bookingReferenceSource from '../domain/BookingReferenceSource'
 import Seat, { CoachID, SeatID, SeatNumber } from '../domain/Seat'
-import { makeEmptyTrain } from '../tests'
+import { makeEmptyTrain } from './helpers'
 
 
 

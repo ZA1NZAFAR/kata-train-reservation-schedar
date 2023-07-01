@@ -25,7 +25,8 @@ export default class RestClient implements BookingReferenceSource, TrainReposito
     })
     const status = response.status
     if (status != 200) {
-      // TODO!
+      const text = await response.text()
+      throw new Error(`Got code ${status} when making reservation\n${text}`)
     }
   }
 

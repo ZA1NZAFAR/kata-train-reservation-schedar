@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
-import SeatFinder from './SeatFinder'
-import { makeEmptyTrain } from '../tests'
-import { CoachID, SeatID, SeatNumber } from './Seat'
+import SeatFinder from '../domain/SeatFinder'
+import { makeEmptyTrain } from './helpers'
+import { CoachID, SeatID, SeatNumber } from '../domain/Seat'
 
 test('booking four seats from empty train', () => {
   const train = makeEmptyTrain()
