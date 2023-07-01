@@ -1,6 +1,5 @@
 package fr.arolla.trainreservation.ticket_office;
 
-import fr.arolla.trainreservation.ticket_office.domain.Seat;
 import fr.arolla.trainreservation.ticket_office.domain.*;
 
 import java.util.ArrayList;

@@ -20,21 +20,21 @@ class SeatFinderTests {
   }
 
   @Test
-  void bookingFourSeatsFromEmptyTrain() {
+  void bookingTwoSeatsFromEmptyTrain() {
     setupBookedSeats(List.of());
 
-    var found = seatFinder.findSeats(4);
+    var found = seatFinder.findSeats(2);
 
-    checkSeats(found, 4);
+    checkSeats(found, 2);
   }
 
   @Test
-  void bookingFourAdditionalSeats() {
+  void bookingTwoAdditionalSeats() {
     setupBookedSeats(List.of("0A", "1A", "2A", "3A"));
 
-    var found = seatFinder.findSeats(4);
+    var found = seatFinder.findSeats(2);
 
-    checkSeats(found, 4);
+    checkSeats(found, 2);
   }
 
   @Test

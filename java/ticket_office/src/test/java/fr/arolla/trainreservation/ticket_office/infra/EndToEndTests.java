@@ -30,12 +30,12 @@ class EndToEndTests {
   private MockMvc mockMvc;
 
   @Test
-  void reserveFourSeatsFromEmptyTrain() throws Exception {
+  void reserveTwoSeatsFromEmptyTrain() throws Exception {
     final String trainId = "express_2000";
     var restTemplate = new RestTemplate();
     restTemplate.postForObject("http://127.0.0.1:8081" + "/reset/" + trainId, null, String.class);
 
-    var request = new ReservationRequest(trainId, 4);
+    var request = new ReservationRequest(trainId, 2);
     var mapper = new ObjectMapper();
     ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
     String requestJson = ow.writeValueAsString(request);
@@ -51,8 +51,8 @@ class EndToEndTests {
     var objectMapper = new ObjectMapper();
     var reservationResponse = objectMapper.readValue(json, ReservationResponse.class);
 
-    var expected = List.of("1A", "2A", "3A", "4A");
+    var expected = List.of("1A", "2A");
     assertEquals(expected, reservationResponse.seats());
   }
-  
+
 }
