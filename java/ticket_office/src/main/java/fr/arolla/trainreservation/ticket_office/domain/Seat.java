@@ -4,10 +4,12 @@ public class Seat implements Comparable<Seat> {
 
   private final SeatId id;
   private String bookingReference;
+
   private Seat(SeatId id, String bookingReference) {
     this.id = id;
     this.bookingReference = bookingReference;
   }
+
   public static Seat free(SeatId id) {
     return new Seat(id, null);
   }
@@ -32,10 +34,6 @@ public class Seat implements Comparable<Seat> {
     );
 
     throw new AlreadyBookedException(message);
-  }
-
-  public void unBook() {
-    this.bookingReference = null;
   }
 
   public boolean isFree() {

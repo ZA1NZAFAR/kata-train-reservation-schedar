@@ -1,6 +1,7 @@
 package fr.arolla.trainreservation.ticket_office;
 
 import fr.arolla.trainreservation.ticket_office.domain.Booking;
+import fr.arolla.trainreservation.ticket_office.domain.Seat;
 import fr.arolla.trainreservation.ticket_office.domain.Train;
 import fr.arolla.trainreservation.ticket_office.domain.TrainRepository;
 
@@ -12,9 +13,9 @@ public class InMemoryRepository implements TrainRepository {
 
   @Override
   public void resetTrain(String trainId) {
-    if (train != null) {
-      train.reset();
-    }
+    var seats = train.getSeats();
+    var freeSeats = seats.stream().map(s -> Seat.free(s.id()));
+    train = new Train(train.id(), freeSeats.toList());
   }
 
   @Override

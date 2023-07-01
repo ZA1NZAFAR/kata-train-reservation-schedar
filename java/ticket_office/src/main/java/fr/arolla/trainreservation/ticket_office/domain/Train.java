@@ -21,18 +21,16 @@ public class Train {
     });
   }
 
+  public String id() {
+    return this.id;
+  }
+
   public Stream<Seat> seatsInCoach(CoachId coach) {
     return this.seats.values().stream().filter(seat -> seat.coach().equals(coach));
   }
 
   public Stream<Seat> seats() {
     return this.seats.values().stream();
-  }
-
-  public void reset() {
-    seats.values().forEach(seat -> {
-      seat.unBook();
-    });
   }
 
   public void book(SeatId seatId, String bookingReference) {
@@ -67,6 +65,10 @@ public class Train {
     return occupied * 1.0 / total;
   }
 
+  public List<Seat> getSeats() {
+    return seats.values().stream().toList();
+  }
+
   @Override
   public String toString() {
     String res = "";
@@ -82,4 +84,6 @@ public class Train {
     }
     return res;
   }
+
+
 }
