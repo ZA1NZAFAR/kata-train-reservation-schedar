@@ -22,7 +22,7 @@ class InMemoryRepository implements TrainRepository {
 
   resetTrain(tranId: string): Promise<void> {
     const oldSeats = this.train.getSeats()
-    const emptySeats = oldSeats.map(s => new Seat(s.id, ""))
+    const emptySeats = oldSeats.map(s => Seat.free(s.id))
     const newTrain = new Train(emptySeats)
     this.train = newTrain
     return Promise.resolve()

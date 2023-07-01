@@ -22,6 +22,9 @@
     "start:booking-reference": "ts-node booking-reference/app.ts",
     "start:train-data": "ts-node train-data/app.ts",
     "start:ticket-office": "ts-node ticket-office/infra/app.ts",
-    "test": "jest"
-  }
+    "test": "jest --runInBand"
+  },
+  "comments": [
+    "Our test suite does not work when tests are run in parallel so we need --runInBand for jest (which we can't put in jest.config.js)"
+  ]
 }

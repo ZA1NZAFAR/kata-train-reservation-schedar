@@ -10,8 +10,7 @@ export const makeEmptyTrain = (): Train => {
       const seatNumber = new SeatNumber(number.toString())
       const coachId = new CoachId(letter)
       const seatId = new SeatId(seatNumber, coachId)
-      const seat = new Seat(seatId, "")
-      seats.push(seat)
+      seats.push(Seat.free(seatId))
     }
   }
   return new Train(seats)

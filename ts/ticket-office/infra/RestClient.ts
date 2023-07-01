@@ -64,8 +64,13 @@ const parseTrain = (json: JsonTrain): Train => {
     const coachId = new CoachId(coach)
     const seatNumber = new SeatNumber(seat_number)
     const seatId = new SeatId(seatNumber, coachId)
-    const seat = new Seat(seatId, booking_reference)
-    seats.push(seat)
+    if (booking_reference) {
+      const seat = Seat.booked(seatId, booking_reference)
+      seats.push(seat)
+    } else {
+      const seat = Seat.free(seatId)
+      seats.push(seat)
+    }
   })
   return new Train(seats)
 }

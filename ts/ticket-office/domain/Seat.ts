@@ -43,9 +43,17 @@ export default class Seat {
   id: SeatId
   booking_reference: string
 
-  constructor(id: SeatId, bookingReference: string) {
+  private constructor(id: SeatId, bookingReference: string) {
     this.id = id
     this.booking_reference = bookingReference
+  }
+
+  static free(id: SeatId): Seat {
+    return new Seat(id, "")
+  }
+
+  static booked(id: SeatId, reference: string): Seat {
+    return new Seat(id, reference)
   }
 
   get coach(): string {
