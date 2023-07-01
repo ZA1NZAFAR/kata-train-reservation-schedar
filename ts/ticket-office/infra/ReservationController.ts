@@ -23,16 +23,16 @@ export default class ReservationController {
   }
 
   async handle(request: ReservationRequest): Promise<ReservationResponse> {
-    const trainID = request.train_id
+    const trainId = request.train_id
     const seatCount = request.count
 
     const bookingReference = await this.bookingReferenceSource.getNewBookingReference()
 
-    const train = await this.trainRepository.getTrain(trainID)
+    const train = await this.trainRepository.getTrain(trainId)
     const seatFinder = new SeatFinder(train)
     const seats = seatFinder.findSeats(seatCount)
     const seatIds = seats.map(s => s.id)
-    const booking = new Booking(bookingReference, seatIds, trainID)
+    const booking = new Booking(bookingReference, seatIds, trainId)
 
     this.trainRepository.applyBooking(booking)
 

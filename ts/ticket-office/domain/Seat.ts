@@ -6,7 +6,7 @@ export class SeatNumber {
   }
 }
 
-export class CoachID {
+export class CoachId {
   value: string
 
   constructor(value: string) {
@@ -14,11 +14,11 @@ export class CoachID {
   }
 }
 
-export class SeatID {
+export class SeatId {
   number: SeatNumber
-  coach: CoachID
+  coach: CoachId
 
-  constructor(number: SeatNumber, coach: CoachID) {
+  constructor(number: SeatNumber, coach: CoachId) {
     this.number = number
     this.coach = coach
   }
@@ -30,10 +30,10 @@ export class SeatID {
 
 
 export default class Seat {
-  id: SeatID
+  id: SeatId
   booking_reference: string
 
-  constructor(id: SeatID, bookingReference: string) {
+  constructor(id: SeatId, bookingReference: string) {
     this.id = id
     this.booking_reference = bookingReference
   }

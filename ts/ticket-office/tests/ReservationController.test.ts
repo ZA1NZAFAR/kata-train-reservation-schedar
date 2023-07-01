@@ -4,7 +4,7 @@ import TrainRepository from '../domain/TrainRepository'
 import Booking from '../domain/Booking'
 import Train from '../domain/Train'
 import bookingReferenceSource from '../domain/BookingReferenceSource'
-import Seat, { CoachID, SeatID, SeatNumber } from '../domain/Seat'
+import Seat, { CoachId, SeatId, SeatNumber } from '../domain/Seat'
 import { makeEmptyTrain } from './helpers'
 
 
@@ -16,7 +16,7 @@ class InMemoryRepository implements TrainRepository {
     this.train = train
   }
 
-  getTrain(trainID: string): Promise<Train> {
+  getTrain(trainId: string): Promise<Train> {
     return Promise.resolve(this.train)
   }
 

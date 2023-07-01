@@ -1,9 +1,9 @@
 import Booking from "./Booking"
-import Seat, { SeatID } from "./Seat"
+import Seat, { SeatId } from "./Seat"
 
 export default class Train {
 
-  seats: Map<SeatID, Seat>
+  seats: Map<SeatId, Seat>
 
   constructor(seats: Seat[]) {
     this.seats = new Map()
@@ -17,13 +17,13 @@ export default class Train {
   }
 
   applyBooking(booking: Booking) {
-    const { seatIDs, bookingReference } = booking;
-    for (const id of seatIDs) {
+    const { seatIds, bookingReference } = booking;
+    for (const id of seatIds) {
       this.book(id, bookingReference)
     }
   }
 
-  book(id: SeatID, reference: string) {
+  book(id: SeatId, reference: string) {
     const seat = this.seats.get(id)
     if (seat) {
       seat.booking_reference = reference

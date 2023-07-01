@@ -1,12 +1,12 @@
-import { SeatID } from "./Seat"
+import { SeatId } from "./Seat"
 
 export default class Booking {
   bookingReference: string
-  seatIDs: SeatID[]
-  trainID: string
-  constructor(bookingReference: string, seatIDs: SeatID[], trainID: string) {
+  seatIds: SeatId[]
+  trainId: string
+  constructor(bookingReference: string, seatIds: SeatId[], trainId: string) {
     this.bookingReference = bookingReference
-    this.seatIDs = seatIDs
-    this.trainID = trainID
+    this.seatIds = seatIds
+    this.trainId = trainId
   }
 }

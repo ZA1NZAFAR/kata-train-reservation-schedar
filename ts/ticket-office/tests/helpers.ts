@@ -1,4 +1,4 @@
-import Seat, { CoachID, SeatID, SeatNumber } from "../domain/Seat"
+import Seat, { CoachId, SeatId, SeatNumber } from "../domain/Seat"
 import Train from "../domain/Train"
 
 export const makeEmptyTrain = (): Train => {
@@ -8,9 +8,9 @@ export const makeEmptyTrain = (): Train => {
   for (const letter of letters) {
     for (const number of numbers) {
       const seatNumber = new SeatNumber(number.toString())
-      const coachID = new CoachID(letter)
-      const seatID = new SeatID(seatNumber, coachID)
-      const seat = new Seat(seatID, "")
+      const coachId = new CoachId(letter)
+      const seatId = new SeatId(seatNumber, coachId)
+      const seat = new Seat(seatId, "")
       seats.push(seat)
     }
   }
