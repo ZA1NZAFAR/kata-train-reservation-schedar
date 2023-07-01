@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BookingProcessorTests {
-  private final String trainID = "express_2000";
+  private final String trainId = "express_2000";
   private Train train;
   private InMemoryRepository inMemoryRepository;
   private DummyBookingReferenceSource dummyBookingReferenceSource;
@@ -30,21 +30,21 @@ public class BookingProcessorTests {
 
   @Test
   public void bookingFourSeatsFromEmptyTrain() {
-    var request = new BookingRequest(trainID, 4);
+    var request = new BookingRequest(trainId, 4);
     var booking = bookingProcessor.processRequest(request);
 
-    assertEquals(booking.seatIDs().stream().map(SeatID::toString).toList(), List.of("0A", "1A", "2A", "3A"));
+    assertEquals(booking.seatIds().stream().map(SeatId::toString).toList(), List.of("0A", "1A", "2A", "3A"));
   }
 
   @Test
   public void bookingFourAdditionalSeats() {
-    var request = new BookingRequest(trainID, 4);
+    var request = new BookingRequest(trainId, 4);
     // First booking:
     bookingProcessor.processRequest(request);
 
     // Second booking:
     var booking = bookingProcessor.processRequest(request);
-    assertEquals(booking.seatIDs().stream().map(SeatID::toString).toList(), List.of("0B", "1B", "2B", "3B"));
+    assertEquals(booking.seatIds().stream().map(SeatId::toString).toList(), List.of("0B", "1B", "2B", "3B"));
   }
 
 }

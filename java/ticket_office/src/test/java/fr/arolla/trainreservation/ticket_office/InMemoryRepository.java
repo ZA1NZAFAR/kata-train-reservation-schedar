@@ -11,23 +11,23 @@ public class InMemoryRepository implements TrainRepository {
   }
 
   @Override
-  public void resetTrain(String trainID) {
+  public void resetTrain(String trainId) {
     if (train != null) {
       train.reset();
     }
   }
 
   @Override
-  public Train getTrain(String trainID) {
+  public Train getTrain(String trainId) {
     return train;
   }
 
   @Override
   public void applyBooking(Booking booking) {
     String bookingReference = booking.reference();
-    var seatIDs = booking.seatIDs();
-    for (var seatID : seatIDs) {
-      train.book(seatID, bookingReference);
+    var seatIds = booking.seatIds();
+    for (var seatId : seatIds) {
+      train.book(seatId, bookingReference);
     }
   }
 

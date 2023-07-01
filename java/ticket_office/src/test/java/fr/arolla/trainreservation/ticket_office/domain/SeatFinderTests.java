@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SeatFinderTests {
-  private final String trainID = "express_2000";
+  private final String trainId = "express_2000";
   private Train train;
   private SeatFinder seatFinder;
 
@@ -64,31 +64,31 @@ class SeatFinderTests {
     seatFinder = new SeatFinder(train);
   }
 
-  void bookCoachAt70Percent(CoachID coach) {
+  void bookCoachAt70Percent(CoachId coach) {
     for (int i = 0; i <= 7; i++) {
       var number = new SeatNumber(String.valueOf(i));
-      var seatID = new SeatID(number, coach);
-      train.book(seatID, "old");
+      var seatId = new SeatId(number, coach);
+      train.book(seatId, "old");
     }
   }
 
-  void checkSeats(List<SeatID> seats, int expectedCount) {
+  void checkSeats(List<SeatId> seats, int expectedCount) {
 
     // Check we have the expected count
     assertEquals(expectedCount, seats.size());
 
     // Use Train.applyReservation so that we're sure a booking can happen
-    train.applyBooking(new Booking("newReference", trainID, seats));
+    train.applyBooking(new Booking("newReference", trainId, seats));
 
     // Check that all seats are in the same coach
-    var coachIDs = seats.stream().map(s -> s.coach()).collect(Collectors.toSet());
-    assertEquals(1, coachIDs.size(), String.format("Expected all seats to be in the same coach, %s", seats));
+    var coachIds = seats.stream().map(s -> s.coach()).collect(Collectors.toSet());
+    assertEquals(1, coachIds.size(), String.format("Expected all seats to be in the same coach, %s", seats));
 
     // Check occupancy of each coach
-    train.getCoaches().forEach(coachID -> {
-      var occupancy = train.occupancyForCoach(coachID);
+    train.getCoaches().forEach(coachId -> {
+      var occupancy = train.occupancyForCoach(coachId);
       if (occupancy > 0.7) {
-        fail(String.format("Coach %s does not have enough free seats\n%s", coachID, train));
+        fail(String.format("Coach %s does not have enough free seats\n%s", coachId, train));
       }
     });
   }

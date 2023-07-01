@@ -29,8 +29,8 @@ public class ReservationController {
 
     return new ReservationResponse(
       booking.reference(),
-      booking.trainID(),
-      booking.seatIDs().stream().map(SeatID::toString).toList()
+      booking.trainId(),
+      booking.seatIds().stream().map(SeatId::toString).toList()
     );
   }
 

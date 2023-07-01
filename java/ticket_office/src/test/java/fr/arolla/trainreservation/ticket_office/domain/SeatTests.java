@@ -10,16 +10,16 @@ public class SeatTests {
 
   @BeforeEach
   void setSeat() {
-    var coachID = new CoachID("A");
+    var coachId = new CoachId("A");
     var seatNumber = new SeatNumber("1");
-    var seatID = new SeatID(seatNumber, coachID);
-    seat = Seat.free(seatID);
+    var seatId = new SeatId(seatNumber, coachId);
+    seat = Seat.free(seatId);
   }
 
   @Test
-  void canParseSeatID() {
+  void canParseSeatId() {
     String id = "1A";
-    var parsed = SeatID.parse(id);
+    var parsed = SeatId.parse(id);
     assertEquals("1A", parsed.toString());
   }
 

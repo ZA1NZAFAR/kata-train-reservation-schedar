@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 public class Train {
   private final String id;
 
-  private final HashMap<SeatID, Seat> seats = new HashMap<>();
-  private final HashSet<CoachID> coaches = new HashSet<>();
+  private final HashMap<SeatId, Seat> seats = new HashMap<>();
+  private final HashSet<CoachId> coaches = new HashSet<>();
 
 
   public Train(String id, List<Seat> seats) {
@@ -21,7 +21,7 @@ public class Train {
     });
   }
 
-  public Stream<Seat> seatsInCoach(CoachID coach) {
+  public Stream<Seat> seatsInCoach(CoachId coach) {
     return this.seats.values().stream().filter(seat -> seat.coach().equals(coach));
   }
 
@@ -35,10 +35,10 @@ public class Train {
     });
   }
 
-  public void book(SeatID seatID, String bookingReference) {
-    var seat = this.seats.get(seatID);
+  public void book(SeatId seatId, String bookingReference) {
+    var seat = this.seats.get(seatId);
     if (seat == null) {
-      String message = String.format("No seat with id '%s'", seatID.toString());
+      String message = String.format("No seat with id '%s'", seatId.toString());
       throw new NoSuchSeatException(message);
     }
     seat.book(bookingReference);
@@ -46,21 +46,21 @@ public class Train {
 
   public void applyBooking(Booking booking) {
     String bookingReference = booking.reference();
-    booking.seatIDs().forEach(s -> book(s, bookingReference));
+    booking.seatIds().forEach(s -> book(s, bookingReference));
   }
 
-  public double occupancyForCoach(CoachID coach) {
+  public double occupancyForCoach(CoachId coach) {
     var seats = seatsInCoach(coach).toList();
     var total = seats.size();
     var occupied = seats.stream().filter(Seat::isBooked).count();
     return occupied * 1.0 / total;
   }
 
-  public List<CoachID> getCoaches() {
+  public List<CoachId> getCoaches() {
     return coaches.stream().toList();
   }
 
-  public double occupancyForCoachAfterBooking(CoachID coach, int seatCount) {
+  public double occupancyForCoachAfterBooking(CoachId coach, int seatCount) {
     var seats = seatsInCoach(coach).toList();
     var total = seats.size();
     var occupied = seats.stream().filter(Seat::isBooked).count() + seatCount;
@@ -72,8 +72,8 @@ public class Train {
     String res = "";
     for (var coach : coaches.stream().sorted().toList()) {
       for (var seat : seatsInCoach(coach).sorted().toList()) {
-        var seatID = seat.id().toString();
-        res += seatID;
+        var seatId = seat.id().toString();
+        res += seatId;
         if (seat.isBooked()) {
           res += " " + seat.bookingReference();
         }

@@ -2,17 +2,17 @@ package fr.arolla.trainreservation.ticket_office.domain;
 
 public class Seat implements Comparable<Seat> {
 
-  private final SeatID id;
+  private final SeatId id;
   private String bookingReference;
-  private Seat(SeatID id, String bookingReference) {
+  private Seat(SeatId id, String bookingReference) {
     this.id = id;
     this.bookingReference = bookingReference;
   }
-  public static Seat free(SeatID id) {
+  public static Seat free(SeatId id) {
     return new Seat(id, null);
   }
 
-  public static Seat booked(SeatID id, String bookingReference) {
+  public static Seat booked(SeatId id, String bookingReference) {
     return new Seat(id, bookingReference);
   }
 
@@ -46,7 +46,7 @@ public class Seat implements Comparable<Seat> {
     return !this.isFree();
   }
 
-  public SeatID id() {
+  public SeatId id() {
     return this.id;
   }
 
@@ -54,7 +54,7 @@ public class Seat implements Comparable<Seat> {
     return id.number();
   }
 
-  public CoachID coach() {
+  public CoachId coach() {
     return id.coach();
   }
 

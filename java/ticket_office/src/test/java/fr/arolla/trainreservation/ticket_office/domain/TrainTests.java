@@ -21,7 +21,7 @@ public class TrainTests {
   void getSeatsInCoach() {
     var train = Helpers.makeEmptyTrain();
 
-    var actual = train.seatsInCoach(new CoachID("A")).sorted().toList();
+    var actual = train.seatsInCoach(new CoachId("A")).sorted().toList();
 
     assertEquals(10, actual.size());
   }
@@ -30,7 +30,7 @@ public class TrainTests {
   void bookAnExistingSeat() {
     var train = Helpers.makeEmptyTrain();
 
-    train.book(SeatID.parse("1A"), "123");
+    train.book(SeatId.parse("1A"), "123");
   }
 
   @Test
@@ -38,19 +38,19 @@ public class TrainTests {
     var train = Helpers.makeEmptyTrain();
 
     assertThrows(NoSuchSeatException.class, () -> {
-      train.book(SeatID.parse("5G"), "123");
+      train.book(SeatId.parse("5G"), "123");
     });
   }
 
   @Test
   void computeOccupancyPerCoach() {
     var train = Helpers.makeEmptyTrain();
-    var coach = new CoachID("A");
+    var coach = new CoachId("A");
     var bookingReference = "123";
     var numbers = IntStream.range(0, 6);
     numbers.forEach(i -> {
       var number = new SeatNumber(Integer.toString(i));
-      var seat = new SeatID(number, coach);
+      var seat = new SeatId(number, coach);
       train.book(seat, bookingReference);
     });
 

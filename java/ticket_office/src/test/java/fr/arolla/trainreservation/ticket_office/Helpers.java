@@ -12,13 +12,13 @@ public class Helpers {
   public static Train makeEmptyTrain() {
     var seats = new ArrayList<fr.arolla.trainreservation.ticket_office.domain.Seat>();
     var letters = new String[]{"A", "B", "C", "D", "E"};
-    var coachIDs = Arrays.stream(letters);
-    coachIDs.forEach(coachID -> {
+    var coachIds = Arrays.stream(letters);
+    coachIds.forEach(coachId -> {
       var numbers = IntStream.range(0, 10);
       var seatsNumbers = numbers.mapToObj(i -> Integer.toString(i));
       seatsNumbers.forEach(seatNumber -> {
-        var seatID = new SeatID(new SeatNumber(seatNumber), new CoachID(coachID));
-        var seat = Seat.free(seatID);
+        var seatId = new SeatId(new SeatNumber(seatNumber), new CoachId(coachId));
+        var seat = Seat.free(seatId);
         seats.add(seat);
       });
     });
@@ -28,9 +28,9 @@ public class Helpers {
 
   public static Train trainWithBookedSeats(Stream<String> booked) {
     var train = makeEmptyTrain();
-    var seatIDs = booked.map(s -> SeatID.parse(s));
-    seatIDs.forEach(seatID -> {
-      train.book(seatID, "old");
+    var seatIds = booked.map(s -> SeatId.parse(s));
+    seatIds.forEach(seatId -> {
+      train.book(seatId, "old");
     });
     return train;
   }

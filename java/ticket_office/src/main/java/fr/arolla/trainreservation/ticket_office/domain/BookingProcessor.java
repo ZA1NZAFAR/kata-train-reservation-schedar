@@ -12,14 +12,14 @@ public class BookingProcessor {
   public Booking processRequest(BookingRequest request) {
     var bookingReference = bookingReferenceSource.getNewBookingReference();
 
-    String trainID = request.trainID();
-    var train = repository.getTrain(trainID);
+    String trainId = request.trainId();
+    var train = repository.getTrain(trainId);
 
     int seatCount = request.seatCount();
     var seatFinder = new SeatFinder(train);
     var freeSeats = seatFinder.findSeats(seatCount);
 
-    var booking = new Booking(bookingReference, trainID, freeSeats);
+    var booking = new Booking(bookingReference, trainId, freeSeats);
     repository.applyBooking(booking);
 
     return booking;

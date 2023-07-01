@@ -19,23 +19,23 @@ public class RestClient implements BookingReferenceSource, TrainRepository {
   }
 
   @Override
-  public void resetTrain(String trainID) {
-    restTemplate.postForObject(baseUrl + "/reset/" + trainID, null, String.class);
+  public void resetTrain(String trainId) {
+    restTemplate.postForObject(baseUrl + "/reset/" + trainId, null, String.class);
   }
 
   @Override
-  public Train getTrain(String trainID) {
-    var json = restTemplate.getForObject(baseUrl + "/data_for_train/" + trainID, String.class);
+  public Train getTrain(String trainId) {
+    var json = restTemplate.getForObject(baseUrl + "/data_for_train/" + trainId, String.class);
     var parser = new TrainParser();
-    return parser.parse(trainID, json);
+    return parser.parse(trainId, json);
   }
 
   @Override
   public void applyBooking(Booking booking) {
-    List<String> seatIDs = booking.seatIDs().stream().map(s -> s.toString()).toList();
+    List<String> seatIds = booking.seatIds().stream().map(s -> s.toString()).toList();
     Map<String, Object> payload = new HashMap<>();
-    payload.put("train_id", booking.trainID());
-    payload.put("seats", seatIDs);
+    payload.put("train_id", booking.trainId());
+    payload.put("seats", seatIds);
     payload.put("booking_reference", booking.reference());
 
     // Will throw if there are booking conflicts which should not happen if SeatFinder works

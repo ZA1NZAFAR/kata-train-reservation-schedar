@@ -1,7 +1,7 @@
 package fr.arolla.trainreservation.ticket_office.infra;
 
 import fr.arolla.trainreservation.ticket_office.domain.Booking;
-import fr.arolla.trainreservation.ticket_office.domain.SeatID;
+import fr.arolla.trainreservation.ticket_office.domain.SeatId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class RestClientTests {
-  private final String trainID = "express_2000";
+  private final String trainId = "express_2000";
   private RestClient client;
 
   @BeforeEach
   void resetTrain() {
     client = new RestClient();
-    client.resetTrain(trainID);
+    client.resetTrain(trainId);
   }
 
   @Test
@@ -30,14 +30,14 @@ public class RestClientTests {
 
   @Test
   void canGetTrain() {
-    var train = client.getTrain(trainID);
+    var train = client.getTrain(trainId);
 
     assertEquals(16, train.seats().count());
   }
 
   @Test
   void canApplyBooking() {
-    var seats = List.of(new String[]{"1A", "2A"}).stream().map(s -> SeatID.parse(s));
+    var seats = List.of(new String[]{"1A", "2A"}).stream().map(s -> SeatId.parse(s));
     var booking = new Booking("abc123def", "express_2000", seats.toList());
 
     client.applyBooking(booking);

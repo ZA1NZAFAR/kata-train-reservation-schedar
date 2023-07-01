@@ -2,11 +2,11 @@ package fr.arolla.trainreservation.ticket_office.domain;
 
 import org.jetbrains.annotations.NotNull;
 
-public record CoachID(String coach) implements Comparable<CoachID> {
+public record CoachId(String coach) implements Comparable<CoachId> {
 
   @Override
   public boolean equals(Object o) {
-    if (!(o instanceof CoachID other)) {
+    if (!(o instanceof CoachId other)) {
       return false;
     }
 
@@ -24,7 +24,7 @@ public record CoachID(String coach) implements Comparable<CoachID> {
 
 
   @Override
-  public int compareTo(@NotNull CoachID other) {
+  public int compareTo(@NotNull CoachId other) {
     return this.coach.compareTo(other.coach());
   }
 }

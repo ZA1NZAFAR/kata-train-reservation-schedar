@@ -9,7 +9,7 @@ public class SeatFinder {
     this.train = train;
   }
 
-  public List<SeatID> findSeats(int seatCount) {
+  public List<SeatId> findSeats(int seatCount) {
     var coach = findBestCoach(seatCount);
     var inCoach = train.seatsInCoach(coach);
     var availableSeatsInCoach = inCoach.filter(Seat::isFree).sorted();
@@ -17,7 +17,7 @@ public class SeatFinder {
     return toBook.map(s -> s.id()).sorted().toList();
   }
 
-  private CoachID findBestCoach(int seatCount) {
+  private CoachId findBestCoach(int seatCount) {
     for (var coach : train.getCoaches()) {
       if (train.occupancyForCoachAfterBooking(coach, seatCount) <= 0.7) {
         return coach;

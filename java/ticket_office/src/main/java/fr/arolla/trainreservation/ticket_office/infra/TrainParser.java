@@ -17,16 +17,16 @@ public class TrainParser {
       for (JsonNode node : seatsNode) {
         String coach = node.get("coach").asText();
         String seatNumber = node.get("seat_number").asText();
-        SeatID seatID = new SeatID(new SeatNumber(seatNumber), new CoachID(coach));
+        SeatId seatId = new SeatId(new SeatNumber(seatNumber), new CoachId(coach));
         String bookingReference = null;
         var bookingReferenceNode = node.get("booking_reference");
         if (bookingReferenceNode != null && !bookingReferenceNode.asText().equals("")) {
           bookingReference = bookingReferenceNode.asText();
         }
         if(bookingReference == null) {
-          seats.add(Seat.free(seatID));
+          seats.add(Seat.free(seatId));
         } else {
-          seats.add(Seat.booked(seatID, bookingReference));
+          seats.add(Seat.booked(seatId, bookingReference));
         }
       }
     } catch (JsonProcessingException e) {

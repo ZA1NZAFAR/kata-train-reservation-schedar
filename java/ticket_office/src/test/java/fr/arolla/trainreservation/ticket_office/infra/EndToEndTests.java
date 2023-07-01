@@ -31,11 +31,11 @@ class EndToEndTests {
 
   @Test
   void reserveFourSeatsFromEmptyTrain() throws Exception {
-    final String trainID = "express_2000";
+    final String trainId = "express_2000";
     var restTemplate = new RestTemplate();
-    restTemplate.postForObject("http://127.0.0.1:8081" + "/reset/" + trainID, null, String.class);
+    restTemplate.postForObject("http://127.0.0.1:8081" + "/reset/" + trainId, null, String.class);
 
-    var request = new ReservationRequest(trainID, 4);
+    var request = new ReservationRequest(trainId, 4);
     var mapper = new ObjectMapper();
     ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
     String requestJson = ow.writeValueAsString(request);
