@@ -42,4 +42,5 @@ export default class ReservationController {
     }
     return Promise.resolve(response)
   }
+
 }

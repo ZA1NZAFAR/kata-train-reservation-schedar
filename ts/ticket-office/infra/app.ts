@@ -16,8 +16,13 @@ app.use(morgan('tiny'))
 
 app.post("/reserve", async (req, res) => {
   const { body } = req
-  const response = await reservationController.handle(body)
-  res.send(response)
+  try {
+    const response = await reservationController.handle(body)
+    res.send(response)
+  } catch (e) {
+    res.status(500).send(e)
+    return
+  }
 })
 
 

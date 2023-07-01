@@ -5,17 +5,26 @@ import Train from "../domain/Train"
 import TrainRepository from "../domain/TrainRepository"
 
 export default class RestClient implements BookingReferenceSource, TrainRepository {
+
   async getTrain(trainId: string): Promise<Train> {
     const response = await fetch(`http://localhost:8081/data_for_train/${trainId}`)
     const json = await response.json()
     return parseTrain(json)
   }
 
+  async resetTrain(trainId: string): Promise<void> {
+    const response = await fetch(`http://localhost:8081/reset/${trainId}`, { method: 'POST' })
+    const status = response.status
+    if (status != 200) {
+      throw new Error(`Got error ${status} while reseting the train ${trainId}`)
+    }
+  }
+
   async applyBooking(booking: Booking): Promise<void> {
     const { bookingReference, seatIds, trainId } = booking
     const reservation = {
       booking_reference: bookingReference,
-      seats: seatIds,
+      seats: seatIds.map(s => s.value),
       train_id: trainId,
     }
     const response = await fetch(`http://localhost:8081/reserve`, {

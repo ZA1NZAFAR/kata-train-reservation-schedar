@@ -20,6 +20,14 @@ class InMemoryRepository implements TrainRepository {
     return Promise.resolve(this.train)
   }
 
+  resetTrain(tranId: string): Promise<void> {
+    const oldSeats = this.train.getSeats()
+    const emptySeats = oldSeats.map(s => new Seat(s.id, ""))
+    const newTrain = new Train(emptySeats)
+    this.train = newTrain
+    return Promise.resolve()
+  }
+
   applyBooking(booking: Booking): Promise<void> {
     this.train.applyBooking(booking)
     return Promise.resolve()

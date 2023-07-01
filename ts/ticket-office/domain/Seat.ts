@@ -26,6 +26,16 @@ export class SeatId {
   toString(): string {
     return this.number.value + this.coach.value
   }
+
+  get value(): string {
+    return this.number.value + this.coach.value
+  }
+
+  static parse(s: string): SeatId {
+    const number = new SeatNumber(s[0])
+    const coach = new CoachId(s[1])
+    return new SeatId(number, coach)
+  }
 }
 
 

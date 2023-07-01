@@ -8,7 +8,11 @@ test('booking four seats from empty train', async () => {
     `http://127.0.0.1:8081/reset/${trainId}`,
     { method: 'POST' }
   )
-  expect(response.status).toBe(200)
+  const status = response.status
+  if (status != 200) {
+    const text = await response.text()
+    throw new Error(`${status} - ${text}`)
+  }
 
 
   // Try to make a reservation
