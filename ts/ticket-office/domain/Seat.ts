@@ -40,6 +40,7 @@ export class SeatId {
 
 
 export default class Seat {
+
   id: SeatId
   private _bookingReference: string
 
@@ -64,16 +65,28 @@ export default class Seat {
     return this.id.number.value
   }
 
-  book(reference: string) {
-    this._bookingReference = reference
+  get bookingReference(): string {
+    return this._bookingReference
   }
 
   isFree(): boolean {
     return this._bookingReference == ""
   }
 
+  isBooked(): boolean {
+    return !this.isFree()
+  }
+
+  book(bookingReference: string) {
+    const previousBookingReference = this._bookingReference
+    if (previousBookingReference != "" && previousBookingReference != bookingReference) {
+      throw new Error(`Could not book '${this.id}' with '${bookingReference}' - already booked with '${previousBookingReference}'`)
+    }
+    this._bookingReference = bookingReference
+  }
+
   toString(): string {
-    return this.id + this._bookingReference
+    return this.id.toString() + this._bookingReference.toString()
   }
 
 }

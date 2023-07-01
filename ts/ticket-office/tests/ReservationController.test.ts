@@ -5,7 +5,7 @@ import Booking from '../domain/Booking'
 import Train from '../domain/Train'
 import bookingReferenceSource from '../domain/BookingReferenceSource'
 import Seat, { CoachId, SeatId, SeatNumber } from '../domain/Seat'
-import { makeEmptyTrain } from './helpers'
+import { makeEmptyTrain, makeTrainWithBookedSeats } from './helpers'
 
 
 
@@ -48,15 +48,16 @@ class DummyBookingReferenceSource implements bookingReferenceSource {
 
 }
 
-const makeController = (): ReservationController => {
-  const train = makeEmptyTrain()
+const makeController = (train: Train): ReservationController => {
   const inMemoryRepository = new InMemoryRepository(train)
   const dummyBookingReferenceSource = new DummyBookingReferenceSource()
   return new ReservationController(dummyBookingReferenceSource, inMemoryRepository)
 }
 
 test('booking from empty train', async () => {
-  const controller = makeController()
+  const train = makeEmptyTrain()
+  const controller = makeController(train)
+
   const request = {
     train_id: "dummy",
     count: 4
@@ -68,3 +69,19 @@ test('booking from empty train', async () => {
   expect(reference).toBeTruthy()
   expect(seats).toEqual(["0A", "1A", "2A", "3A"])
 })
+
+test('booking four additional seats', async () => {
+  const train = makeTrainWithBookedSeats(["0A", "1A", "2A", "3A"])
+  const controller = makeController(train)
+
+  const request = {
+    train_id: "dummy",
+    count: 4
+  }
+  const response = await controller.handle(request)
+
+  const { reference, seats } = response
+  expect(reference).toBeTruthy()
+  expect(seats).toEqual(["4A", "5A", "6A", "7A"])
+})
+

@@ -15,3 +15,13 @@ export const makeEmptyTrain = (): Train => {
   }
   return new Train(seats)
 }
+
+export const makeTrainWithBookedSeats = (bookedSeats: string[]): Train => {
+  const train = makeEmptyTrain()
+  const oldReference = "abc123"
+  for (const s of bookedSeats) {
+    const seatId = SeatId.parse(s)
+    train.book(seatId, oldReference)
+  }
+  return train
+}
