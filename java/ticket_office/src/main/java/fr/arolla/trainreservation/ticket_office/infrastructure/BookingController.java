@@ -1,10 +1,10 @@
 package fr.arolla.trainreservation.ticket_office.infrastructure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.arolla.trainreservation.ticket_office.DTO.Seat;
-import fr.arolla.trainreservation.ticket_office.DTO.BookingRequest;
-import fr.arolla.trainreservation.ticket_office.DTO.BookingResponse;
-import fr.arolla.trainreservation.ticket_office.domain.BookingDomain;
+import fr.arolla.trainreservation.ticket_office.domain.DTO.Seat;
+import fr.arolla.trainreservation.ticket_office.domain.DTO.BookingRequest;
+import fr.arolla.trainreservation.ticket_office.domain.DTO.BookingResponse;
+import fr.arolla.trainreservation.ticket_office.domain.BookingDomainService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,12 +18,12 @@ import java.util.stream.Stream;
 
 
 @RestController
-public class BookingInfrastructure {
-  private final BookingDomain bookingDomain;
+public class BookingController {
+  private final BookingDomainService bookingDomainService;
   private final RestTemplate restTemplate;
 
-  BookingInfrastructure() {
-    bookingDomain = new BookingDomain();
+  BookingController() {
+    bookingDomainService = new BookingDomainService();
     restTemplate = new RestTemplate();
   }
 
@@ -42,16 +42,16 @@ public class BookingInfrastructure {
     Stream<Seat> availableSeats;
     try {
       var tree = objectMapper.readTree(json);
-      ArrayList<Seat> seats = bookingDomain.extractSeats(tree);
+      ArrayList<Seat> seats = bookingDomainService.extractSeats(tree);
 
       // Step 3: find available seats
-      availableSeats = bookingDomain.getAvailableSeats(seats, seatCount);
+      availableSeats = bookingDomainService.getAvailableSeats(seats, seatCount);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
 
     // Step 4: call the '/reserve' end point
-    var ids = bookingDomain.getIdsToReserve(availableSeats, seatCount);
+    var ids = bookingDomainService.getIdsToReserve(availableSeats, seatCount);
     saveNewSeats(trainId, ids, bookingReference);
 
     // Step 5: return reference and booked seats

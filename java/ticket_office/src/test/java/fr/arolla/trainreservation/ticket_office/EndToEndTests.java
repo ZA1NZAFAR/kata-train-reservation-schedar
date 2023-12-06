@@ -2,10 +2,10 @@ package fr.arolla.trainreservation.ticket_office;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import fr.arolla.trainreservation.ticket_office.DTO.BookingRequest;
-import fr.arolla.trainreservation.ticket_office.DTO.BookingResponse;
-import fr.arolla.trainreservation.ticket_office.DTO.Seat;
-import fr.arolla.trainreservation.ticket_office.domain.BookingDomain;
+import fr.arolla.trainreservation.ticket_office.domain.DTO.BookingRequest;
+import fr.arolla.trainreservation.ticket_office.domain.DTO.BookingResponse;
+import fr.arolla.trainreservation.ticket_office.domain.DTO.Seat;
+import fr.arolla.trainreservation.ticket_office.domain.BookingDomainService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -106,8 +106,8 @@ class EndToEndTests {
     seats.add(new Seat("1", "C", ""));
     seats.add(new Seat("2", "C", ""));
 
-    BookingDomain bookingDomain = new BookingDomain();
-    assertFalse(bookingDomain.isGlobalOccupancyOver70(seats, 4));
+    BookingDomainService bookingDomainService = new BookingDomainService();
+    assertFalse(bookingDomainService.isGlobalOccupancyOver70(seats, 4));
   }
 
   @Test
@@ -124,7 +124,7 @@ class EndToEndTests {
     seats.add(new Seat("1", "C", ""));
     seats.add(new Seat("2", "C", ""));
 
-    BookingDomain bookingDomain = new BookingDomain();
-    assertTrue(bookingDomain.isGlobalOccupancyOver70(seats, 4));
+    BookingDomainService bookingDomainService = new BookingDomainService();
+    assertTrue(bookingDomainService.isGlobalOccupancyOver70(seats, 4));
   }
 }

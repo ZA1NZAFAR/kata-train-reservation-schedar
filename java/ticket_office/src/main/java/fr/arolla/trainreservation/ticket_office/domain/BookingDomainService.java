@@ -1,7 +1,7 @@
 package fr.arolla.trainreservation.ticket_office.domain;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import fr.arolla.trainreservation.ticket_office.DTO.Seat;
+import fr.arolla.trainreservation.ticket_office.domain.DTO.Seat;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Service
-public class BookingDomain {
+public class BookingDomainService {
 
   public ArrayList<Seat> extractSeats(JsonNode tree) {
     ArrayList<Seat> seats = new ArrayList<>();
