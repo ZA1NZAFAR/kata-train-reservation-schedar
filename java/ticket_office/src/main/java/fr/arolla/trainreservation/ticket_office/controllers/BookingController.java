@@ -38,8 +38,9 @@ public class BookingController {
     try {
       var tree = objectMapper.readTree(json);
       ArrayList<Seat> seats = SeatUtils.extractSeats(tree);
-        // Step 3: find available seats
-      availableSeats = bookingService.getAvailableSeats(seats);
+
+      // Step 3: find available seats
+      availableSeats = bookingService.getAvailableSeats(seats, seatCount);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
