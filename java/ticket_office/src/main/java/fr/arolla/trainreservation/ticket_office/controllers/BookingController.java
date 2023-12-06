@@ -31,7 +31,8 @@ public class BookingController {
     var bookingReference = bookingService.getBookingReference();
 
     // Step 2: Retrieve train data for the given train ID
-    var json = restTemplate.getForObject("http://127.0.0.1:8081/data_for_train/" + trainId, String.class);
+    var json = bookingService.getTrainData(trainId);
+
     ObjectMapper objectMapper = new ObjectMapper();
     Stream<Seat> availableSeats;
     try {
@@ -42,9 +43,6 @@ public class BookingController {
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-
-    // Step 3: find available seats (hard-code coach 'A' for now)
-    var availableSeats = seats.stream().filter(seat -> seat.coach().equals("A") && seat.bookingReference() == null);
 
     // Step 4: call the '/reserve' end point
     var ids = bookingService.getIdsToReserve(availableSeats, seatCount);
