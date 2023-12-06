@@ -46,4 +46,10 @@ public class BookingService {
     payload.put("booking_reference", bookingReference);
     restTemplate.postForObject("http://127.0.0.1:8081/reserve", payload, String.class);
   }
+
+  public boolean isGlobalOccupancyOver70(List<Seat> seats, int numberSeatsToReserve) {
+    var count = seats.stream().filter(seat -> seat.bookingReference() != null).count();
+    var occupancy = (count + numberSeatsToReserve) / (double) seats.size();
+    return !(occupancy > 0.7);
+  }
 }
