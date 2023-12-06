@@ -18,8 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -117,7 +116,7 @@ class EndToEndTests {
     seats.add(new Seat("1", "A", "fezke"));
     seats.add(new Seat("2", "A", "fzefez"));
     seats.add(new Seat("3", "A", "dfvg"));
-    seats.add(new Seat("4", "A", ""));
+    seats.add(new Seat("4", "A", "zebfbze"));
     seats.add(new Seat("1", "B", ""));
     seats.add(new Seat("2", "B", ""));
     seats.add(new Seat("3", "B", ""));
@@ -126,6 +125,6 @@ class EndToEndTests {
     seats.add(new Seat("2", "C", ""));
 
     BookingDomain bookingDomain = new BookingDomain();
-    assertFalse(bookingDomain.isGlobalOccupancyOver70(seats, 4));
+    assertTrue(bookingDomain.isGlobalOccupancyOver70(seats, 4));
   }
 }
