@@ -2,8 +2,10 @@ package fr.arolla.trainreservation.ticket_office;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import fr.arolla.trainreservation.ticket_office.entities.BookingRequest;
-import fr.arolla.trainreservation.ticket_office.entities.BookingResponse;
+import fr.arolla.trainreservation.ticket_office.DTO.BookingRequest;
+import fr.arolla.trainreservation.ticket_office.DTO.BookingResponse;
+import fr.arolla.trainreservation.ticket_office.DTO.Seat;
+import fr.arolla.trainreservation.ticket_office.domain.BookingDomain;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,9 +15,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -89,5 +93,39 @@ class EndToEndTests {
     assertEquals(expected, bookingResponse.seats());
   }
 
+  @Test
+  void check_70_percent_occupancy_empty_seats() {
+    List<Seat> seats = new ArrayList<>();
+    seats.add(new Seat("1", "A", ""));
+    seats.add(new Seat("2", "A", ""));
+    seats.add(new Seat("3", "A", ""));
+    seats.add(new Seat("4", "A", ""));
+    seats.add(new Seat("1", "B", ""));
+    seats.add(new Seat("2", "B", ""));
+    seats.add(new Seat("3", "B", ""));
+    seats.add(new Seat("4", "B", ""));
+    seats.add(new Seat("1", "C", ""));
+    seats.add(new Seat("2", "C", ""));
 
+    BookingDomain bookingDomain = new BookingDomain();
+    assertFalse(bookingDomain.isGlobalOccupancyOver70(seats, 4));
+  }
+
+  @Test
+  void check_70_percent_occupancy_occupied_seats() {
+    List<Seat> seats = new ArrayList<>();
+    seats.add(new Seat("1", "A", "fezke"));
+    seats.add(new Seat("2", "A", "fzefez"));
+    seats.add(new Seat("3", "A", "dfvg"));
+    seats.add(new Seat("4", "A", ""));
+    seats.add(new Seat("1", "B", ""));
+    seats.add(new Seat("2", "B", ""));
+    seats.add(new Seat("3", "B", ""));
+    seats.add(new Seat("4", "B", ""));
+    seats.add(new Seat("1", "C", ""));
+    seats.add(new Seat("2", "C", ""));
+
+    BookingDomain bookingDomain = new BookingDomain();
+    assertFalse(bookingDomain.isGlobalOccupancyOver70(seats, 4));
+  }
 }
