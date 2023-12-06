@@ -3,7 +3,11 @@ package fr.arolla.trainreservation.ticket_office.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.arolla.trainreservation.ticket_office.Seat;
+import fr.arolla.trainreservation.ticket_office.entities.Seat;
+import fr.arolla.trainreservation.ticket_office.entities.BookingRequest;
+import fr.arolla.trainreservation.ticket_office.entities.BookingResponse;
+import fr.arolla.trainreservation.ticket_office.services.BookingService;
+import fr.arolla.trainreservation.ticket_office.utils.SeatUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,11 +20,10 @@ import java.util.Map;
 
 @RestController
 public class BookingController {
-
-  private final RestTemplate restTemplate;
+  BookingService bookingService;
 
   BookingController() {
-    restTemplate = new RestTemplate();
+    bookingService = new BookingService();
   }
 
   @RequestMapping("/reserve")
@@ -29,28 +32,18 @@ public class BookingController {
     var trainId = bookingRequest.train_id();
 
     // Step 1: Get a booking reference
-    var bookingReference = restTemplate.getForObject("http://127.0.0.1:8082/booking_reference", String.class);
+    var bookingReference = bookingService.getBookingReference();
 
     // Step 2: Retrieve train data for the given train ID
     var json = restTemplate.getForObject("http://127.0.0.1:8081/data_for_train/" + trainId, String.class);
     ObjectMapper objectMapper = new ObjectMapper();
-    ArrayList<Seat> seats = new ArrayList<>();
+    Stream<Seat> availableSeats;
     try {
       var tree = objectMapper.readTree(json);
-      var seatsNode = tree.get("seats");
-      for (JsonNode node : seatsNode) {
-        String coach = node.get("coach").asText();
-        String seatNumber = node.get("seat_number").asText();
-        var jsonBookingReference = node.get("booking_reference").asText();
-        if (jsonBookingReference.isEmpty()) {
-          var seat = new Seat(seatNumber, coach, null);
-          seats.add(seat);
-        } else {
-          var seat = new Seat(seatNumber, coach, jsonBookingReference);
-          seats.add(seat);
-        }
-      }
-    } catch (JsonProcessingException e) {
+      ArrayList<Seat> seats = SeatUtils.extractSeats(tree);
+        // Step 3: find available seats
+      availableSeats = bookingService.getAvailableSeats(seats);
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
 

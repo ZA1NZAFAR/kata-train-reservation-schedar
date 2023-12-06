@@ -2,8 +2,8 @@ package fr.arolla.trainreservation.ticket_office;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import fr.arolla.trainreservation.ticket_office.controllers.BookingRequest;
-import fr.arolla.trainreservation.ticket_office.controllers.BookingResponse;
+import fr.arolla.trainreservation.ticket_office.entities.BookingRequest;
+import fr.arolla.trainreservation.ticket_office.entities.BookingResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
