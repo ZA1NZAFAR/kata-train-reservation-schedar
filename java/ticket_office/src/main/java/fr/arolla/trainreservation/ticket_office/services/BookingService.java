@@ -28,7 +28,10 @@ public class BookingService {
     return restTemplate.getForObject("http://127.0.0.1:8081/data_for_train/" + trainId, String.class);
   }
 
-  public Stream<Seat> getAvailableSeats(ArrayList<Seat> seats){
+  public Stream<Seat> getAvailableSeats(ArrayList<Seat> seats, int numberSeatsToReserve) {
+    if (isGlobalOccupancyOver70(seats, numberSeatsToReserve)) {
+      throw new RuntimeException("Global occupancy over 70%");
+    }
     return seats.stream().filter(seat -> seat.coach().equals("A") && seat.bookingReference() == null);
   }
 
